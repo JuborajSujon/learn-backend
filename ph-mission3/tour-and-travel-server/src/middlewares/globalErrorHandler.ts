@@ -32,6 +32,12 @@ export const globalErrorHandler = (
       message: err.message,
       error: err,
     })
+  } else if (err.code && err.code === 11000) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: err.errorResponse.errmsg,
+      error: err,
+    })
   } else if (err instanceof Error) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       success: false,
