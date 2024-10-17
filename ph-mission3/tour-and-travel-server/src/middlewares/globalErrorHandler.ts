@@ -3,6 +3,9 @@
 import { NextFunction, Request, Response } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import mongoose from 'mongoose'
+import { handleGenericError } from '../helpers/handleGenericError'
+import { handleDuplicateError } from '../helpers/handleDuplicateError'
+import { handleCastError } from '../helpers/handleCastError'
 
 /**
  * Error type
@@ -27,11 +30,7 @@ export const globalErrorHandler = (
   _next: NextFunction
 ) => {
   if (err instanceof mongoose.Error.CastError) {
-    res.status(StatusCodes.BAD_REQUEST).json({
-      success: false,
-      message: err.message,
-      error: err,
-    })
+    handleCastError(err, res)
   } else if (err instanceof mongoose.Error.ValidationError) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       success: false,
@@ -39,16 +38,8 @@ export const globalErrorHandler = (
       error: err,
     })
   } else if (err.code && err.code === 11000) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      success: false,
-      message: err.errorResponse.errmsg,
-      error: err,
-    })
+    handleDuplicateError(err, res)
   } else if (err instanceof Error) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      success: false,
-      message: err.message,
-      error: err,
-    })
+    handleGenericError(err, res)
   }
 }
