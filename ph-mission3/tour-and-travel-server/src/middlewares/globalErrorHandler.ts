@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextFunction, Request, Response } from 'express'
-import { StatusCodes } from 'http-status-codes'
 import mongoose from 'mongoose'
 import { handleGenericError } from '../helpers/handleGenericError'
 import { handleDuplicateError } from '../helpers/handleDuplicateError'
 import { handleCastError } from '../helpers/handleCastError'
+import { handleValidationError } from '../helpers/handleValidationError'
 
 /**
  * Error type
@@ -32,11 +32,7 @@ export const globalErrorHandler = (
   if (err instanceof mongoose.Error.CastError) {
     handleCastError(err, res)
   } else if (err instanceof mongoose.Error.ValidationError) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      success: false,
-      message: err.message,
-      error: err,
-    })
+    handleValidationError(err, res)
   } else if (err.code && err.code === 11000) {
     handleDuplicateError(err, res)
   } else if (err instanceof Error) {
