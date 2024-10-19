@@ -1,4 +1,3 @@
-import { NextFunction, Request, Response } from 'express'
 import { tourService } from './tour.service'
 import sendResponse from '../../utils/sendResponse'
 import { StatusCodes } from 'http-status-codes'
@@ -16,7 +15,7 @@ const createTour = catchAsync(async (req, res) => {
 })
 
 const getTours = catchAsync(async (req, res) => {
-  const result = await tourService.getTours()
+  const result = await tourService.getTours(req.query)
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
