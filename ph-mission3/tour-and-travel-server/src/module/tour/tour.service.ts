@@ -1,3 +1,4 @@
+import QueryBuilder from '../../builder/QueryBuilder'
 import { ITour } from './tour.interface'
 import Tour from './tour.model'
 
@@ -12,21 +13,21 @@ const createTour = async (payload: ITour) => {
 }
 
 const getTours = async (query: Record<string, unknown>) => {
-  const queryObj = { ...query }
-  const excludingImportant = [
-    'searchTerm',
-    'page',
-    'limit',
-    'sortOrder',
-    'sortBy',
-    'fields',
-  ]
+  // const queryObj = { ...query }
+  // const excludingImportant = [
+  //   'searchTerm',
+  //   'page',
+  //   'limit',
+  //   'sortOrder',
+  //   'sortBy',
+  //   'fields',
+  // ]
 
-  excludingImportant.forEach((el) => delete queryObj[el])
+  // excludingImportant.forEach((el) => delete queryObj[el])
 
-  const serchTerm = query.searchTerm || ''
+  // const serchTerm = query.searchTerm || ''
 
-  const searchableFields = ['name', 'locations', 'startLocation']
+  // const searchableFields = ['name', 'locations', 'startLocation']
   // const result = await Tour.find({
   //   $or: [
   //     { name: { $regex: serchTerm, $options: 'i' } },
@@ -40,37 +41,48 @@ const getTours = async (query: Record<string, unknown>) => {
   //     [field]: { $regex: serchTerm, $options: 'i' },
   //   })),
   // })
-  const searchQuery = Tour.find({
-    $or: searchableFields.map((field) => ({
-      [field]: { $regex: serchTerm, $options: 'i' },
-    })),
-  })
-  // const result = await searchQuery.find(queryObj)
+  // const searchQuery = Tour.find({
+  //   $or: searchableFields.map((field) => ({
+  //     [field]: { $regex: serchTerm, $options: 'i' },
+  //   })),
+  // })
+  // // const result = await searchQuery.find(queryObj)
 
-  const filterQurery = searchQuery.find(queryObj)
+  // const filterQurery = searchQuery.find(queryObj)
 
-  const page: number = Number(query.page) || 1
-  const limit: number = Number(query.limit) || 10
-  const skiped = (page - 1) * limit
+  // const page: number = Number(query.page) || 1
+  // const limit: number = Number(query.limit) || 10
+  // const skiped = (page - 1) * limit
 
-  const paginatedQuery = filterQurery.skip(skiped).limit(limit)
+  // const paginatedQuery = filterQurery.skip(skiped).limit(limit)
 
-  let sortStr: string = 'price'
-  if (query?.sortBy && query?.sortOrder) {
-    const sortBy = query?.sortBy
-    const sortOrder = query?.sortOrder
+  // let sortStr: string = 'price'
+  // if (query?.sortBy && query?.sortOrder) {
+  //   const sortBy = query?.sortBy
+  //   const sortOrder = query?.sortOrder
 
-    sortStr = `${sortOrder === 'desc' ? '-' : ''}${sortBy}`
-  }
+  //   sortStr = `${sortOrder === 'desc' ? '-' : ''}${sortBy}`
+  // }
 
-  const sortQuery = paginatedQuery.sort(sortStr)
+  // const sortQuery = paginatedQuery.sort(sortStr)
 
-  let fields = '-__v'
+  // let fields = '-__v'
 
-  if (query?.fields) {
-    fields = (query?.fields as string).split(',').join(' ')
-  }
-  const result = await sortQuery.select(fields)
+  // if (query?.fields) {
+  //   fields = (query?.fields as string).split(',').join(' ')
+  // }
+  // const result = await sortQuery.select(fields)
+  // return result
+
+  const searchableFields = ['name', 'startLocation', 'locations']
+  const tours = new QueryBuilder(Tour.find(), query)
+    .search(searchableFields)
+    .filter()
+    .sort()
+    .paginate()
+    .select()
+
+  const result = await tours.modelQuery
   return result
 }
 
