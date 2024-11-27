@@ -1,8 +1,8 @@
-// const express = require('express')
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import { StudentRoutes } from './app/modules/student/student.route';
 import { UserRoutes } from './app/modules/user/user.route';
+import { globalErrorHandler } from './app/middlwares/globalErrorHandler';
 
 const app: Application = express();
 
@@ -14,8 +14,10 @@ app.use(cors());
 app.use('/api/v1/students', StudentRoutes);
 app.use('/api/v1/users', UserRoutes);
 
-app.get('/', (req: Request, res: Response) => {
+app.get('/', (_req: Request, res: Response) => {
   res.send('Home Router');
 });
+
+app.use(globalErrorHandler);
 
 export default app;
