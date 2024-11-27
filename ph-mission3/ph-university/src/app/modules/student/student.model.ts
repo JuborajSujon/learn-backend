@@ -3,26 +3,16 @@ import {
   TGuardian,
   TLocalGuardian,
   TStudent,
-  StudentMethods,
   StudentModel,
   TUserName,
 } from './student.interface';
 import validator from 'validator';
-import bcrypt from 'bcrypt';
-import config from '../../config';
 
 const userNameSchema = new Schema<TUserName>({
   firstName: {
     type: String,
     require: [true, 'First name is required'],
     trim: true,
-    // validate: {
-    //   validator: function (value: string) {
-    //     const firstNamestr = value.charAt(0).toUpperCase() + value.slice(1);
-    //     return firstNamestr === value;
-    //   },
-    //   message: '{VALUE} is not a capitalize format',
-    // },
   },
   middleName: { type: String, trim: true },
 
@@ -75,10 +65,11 @@ const localGuardianSchema = new Schema<TLocalGuardian>({
 const studentSchema = new Schema<TStudent, StudentModel>(
   {
     id: { type: String, required: true, unique: true },
-    password: {
-      type: String,
-      required: [true, 'Password is required'],
-      maxlength: [20, 'Password is too long, not more than 20 characters'],
+    user: {
+      type: Schema.Types.ObjectId,
+      required: [true, 'User id is required'],
+      unique: true,
+      ref: 'User',
     },
     name: {
       type: userNameSchema,
@@ -134,15 +125,6 @@ const studentSchema = new Schema<TStudent, StudentModel>(
       required: [true, 'Local guardian is required'],
     },
     profileImg: { type: String },
-    isActive: {
-      type: String,
-      enum: {
-        values: ['active', 'blocked'],
-        message:
-          "The isActive field can only be one of the following values: 'active', 'blocked'.",
-      },
-      default: 'active',
-    },
     isDeleted: { type: Boolean, default: false },
   },
   {
@@ -150,51 +132,18 @@ const studentSchema = new Schema<TStudent, StudentModel>(
   },
 );
 
-// pre save middleware / hooks : will work on create() and save()
-studentSchema.pre('save', async function (next) {
-  // console.log(this, 'pre hook: we will save the data');
-  // eslint-disable-next-line @typescript-eslint/no-this-alias
-  const user = this;
-
-  // hashing password and save into database
-  user.password = await bcrypt.hash(
-    user.password,
-    Number(config.bcrypt_salt_rounds),
-  );
-
-  next();
-});
-
-// post save middleware / hooks
-studentSchema.post('save', function (doc, next) {
-  // console.log(this, 'post hook: we saved our data');
-
-  // after the save password will be removed
-  doc.password = '';
-
-  next();
-});
-
 // Query middleware
 studentSchema.pre('find', function (next) {
-  // console.log(this, 'pre hook: we will find the data');
-
   this.find({ isDeleted: { $ne: true } });
   next();
 });
 
 studentSchema.pre('findOne', function (next) {
-  // console.log(this, 'pre hook: we will find the data');
-
   this.find({ isDeleted: { $ne: true } });
   next();
 });
 
-// [{ $match: { isDeleted: { $ne: true } },  { '$match': { id: 'S55437' } }}]
-
 studentSchema.pre('aggregate', function (next) {
-  // console.log(this, 'pre hook: we will find the data');
-
   this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
   next();
 });
@@ -204,12 +153,6 @@ studentSchema.statics.isUserExists = async function (id: string) {
   const existingUser = await Student.findOne({ id });
   return existingUser;
 };
-
-// creatnig a custom instance method
-// studentSchema.methods.isUserExists = async function (id: string) {
-//   const existingUser = await Student.findOne({ id });
-//   return existingUser;
-// };
 
 // virtual property
 studentSchema.virtual('fullName').get(function () {

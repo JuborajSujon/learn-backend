@@ -76,13 +76,6 @@ const studentValidationSchema = z.object({
   guardian: guardianValidationSchema,
   localGuardian: localGuardianValidationSchema,
   profileImg: z.string().optional(),
-  isActive: z
-    .enum(['active', 'blocked'], {
-      errorMap: () => ({
-        message: "The isActive field must be 'active' or 'blocked'.",
-      }),
-    })
-    .default('active'),
   isDeleted: z.boolean().default(false),
 });
 
