@@ -1,14 +1,8 @@
 import { StudentServices } from './student.service';
 import sendResponse from '../../utils/sendResponse';
 import status from 'http-status';
-import { NextFunction, Request, RequestHandler, Response } from 'express';
+import catchAsync from '../../utils/CatchAsync';
 
-// catch async HOF
-const catchAsync = (fn: RequestHandler) => {
-  return (req: Request, res: Response, next: NextFunction) => {
-    Promise.resolve(fn(req, res, next)).catch((err) => next(err));
-  };
-};
 const getAllStudents = catchAsync(async (req, res) => {
   const result = await StudentServices.getAllStudentsFromDB();
 
