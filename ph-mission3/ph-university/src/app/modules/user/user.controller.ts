@@ -1,13 +1,9 @@
-import { NextFunction, Request, Response } from 'express';
 import { UserServices } from './user.service';
 import sendResponse from '../../utils/sendResponse';
 import status from 'http-status';
+import { RequestHandler } from 'express';
 
-const createStudent = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+const createStudent: RequestHandler = async (req, res, next) => {
   try {
     // creating a schema to validate by zod
     const { password, student: studentData } = req.body;
