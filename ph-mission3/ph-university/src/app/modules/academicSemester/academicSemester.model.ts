@@ -21,13 +21,13 @@ export const Months: TMonths[] = [
   'December',
 ];
 
-export const semeterName: TAcademicSemesterName[] = [
+export const SemeterName: TAcademicSemesterName[] = [
   'Autumn',
   'Summer',
   'Fall',
 ];
 
-export const semesterCode: TAcademicSemesterCode[] = ['01', '02', '03'];
+export const SemesterCode: TAcademicSemesterCode[] = ['01', '02', '03'];
 
 const academicSemesterSchema = new Schema<TAcademicSemester>({
   name: {
@@ -46,10 +46,12 @@ const academicSemesterSchema = new Schema<TAcademicSemester>({
   },
   startMonth: {
     type: String,
+    required: true,
     enum: Months,
   },
   endMonth: {
     type: String,
+    required: true,
     enum: Months,
   },
 });
