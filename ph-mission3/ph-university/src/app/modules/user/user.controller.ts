@@ -7,9 +7,6 @@ const createStudent = catchAsync(async (req, res) => {
   // creating a schema to validate by zod
   const { password, student: studentData } = req.body;
 
-  // data validation using zod
-  // const zodparseData = studentValidationSchema.parse(studentData);
-
   // Will call service func to send this data
   const result = await UserServices.createStudentIntoDB(password, studentData);
 
