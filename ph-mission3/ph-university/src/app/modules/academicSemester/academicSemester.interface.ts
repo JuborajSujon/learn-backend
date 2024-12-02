@@ -1,4 +1,4 @@
-export type Month =
+export type TMonth =
   | 'January'
   | 'February'
   | 'March'
@@ -12,10 +12,10 @@ export type Month =
   | 'November'
   | 'December';
 
-export type AcademicSemester = {
+export type TAcademicSemester = {
   name: 'Autumn' | 'Summer' | 'Fall';
   code: '01' | '02' | '03';
   year: Date;
-  startMonth: Month;
-  endMonth: Month;
+  startMonth: TMonth;
+  endMonth: TMonth;
 };
