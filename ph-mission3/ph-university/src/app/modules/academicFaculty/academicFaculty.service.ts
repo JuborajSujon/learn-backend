@@ -1,25 +1,25 @@
 import { TAcademicFaculty } from './academicFacalty.interface';
 import { AcademicFaculty } from './academicFaculty.model';
 
-// create academic semester
+// create academic faculty
 const createAcademicFacultyIntoDB = async (payload: TAcademicFaculty) => {
   const result = await AcademicFaculty.create(payload);
   return result;
 };
 
-// get all academic semesters
+// get all academic faculties
 const getAllAcademicFacultiesFromDB = async () => {
   const result = await AcademicFaculty.find();
   return result;
 };
 
-// get single academic semester
+// get single academic faculty
 const getSingleAcademicFacultyFromDB = async (id: string) => {
   const result = await AcademicFaculty.findById(id);
   return result;
 };
 
-// update academic semester
+// update academic faculty
 const updateAcademicFacultyIntoDB = async (
   id: string,
   payload: Partial<TAcademicFaculty>,
