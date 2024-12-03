@@ -56,7 +56,7 @@ export const createStudentValidationSchema = z.object({
           message: "The gender field must be 'male', 'female', or 'other'.",
         }),
       }),
-      dateOfBirth: z.date().optional(),
+      dateOfBirth: z.string().optional(),
       email: z
         .string()
         .email({ message: 'Invalid email address' })
