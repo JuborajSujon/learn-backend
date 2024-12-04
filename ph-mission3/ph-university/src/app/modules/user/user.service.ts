@@ -55,10 +55,10 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
     await session.endSession();
 
     return newStudent;
-    // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   } catch (error) {
     await session.abortTransaction();
     await session.endSession();
+    throw new Error('Failed to create student');
   }
 };
 
