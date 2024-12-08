@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 import { ErrorRequestHandler } from 'express';
-import { ZodError, ZodIssue } from 'zod';
-import { TErrorSource } from '../interface/error.interface';
+import { ZodError } from 'zod';
+import { TErrorSources } from '../interface/error.interface';
 import config from '../config';
+import { handleZodError } from '../errors/handleZodError';
+import handleValidationError from '../errors/handleValidationError';
 
 export const globalErrorHandler: ErrorRequestHandler = (
   err,
@@ -14,29 +16,21 @@ export const globalErrorHandler: ErrorRequestHandler = (
   let statusCode = err.statusCode || 500;
   let message = err.message || 'something went wrong';
 
-  let errorSources: TErrorSource = [
+  let errorSources: TErrorSources = [
     {
       path: '',
       message: 'something went wrong',
     },
   ];
 
-  const handleZodError = (error: ZodError) => {
-    const errorSources: TErrorSource = error.issues.map((issue: ZodIssue) => ({
-      path: issue?.path[issue.path.length - 1],
-      message: issue.message,
-    }));
-
-    const statusCode = 400;
-    return {
-      statusCode,
-      message: 'Validation Error',
-      errorSources,
-    };
-  };
-
   if (err instanceof ZodError) {
     const simplifiedError = handleZodError(err);
+
+    statusCode = simplifiedError?.statusCode;
+    message = simplifiedError?.message;
+    errorSources = simplifiedError?.errorSources;
+  } else if (err?.name === 'ValidationError') {
+    const simplifiedError = handleValidationError(err);
 
     statusCode = simplifiedError?.statusCode;
     message = simplifiedError?.message;
