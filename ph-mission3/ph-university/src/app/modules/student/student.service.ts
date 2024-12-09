@@ -10,7 +10,6 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
   // {presentAddress: {$regex: query.searchTerm, $options: 'i' }}
   // {'name.firstName': {$regex: query.searchTerm, $options: 'i' }}
 
-  console.log(query);
   const queryObj = { ...query };
   const searchableFields = ['email', 'presentAddress', 'name.firstName'];
   let searchTerm = '';
