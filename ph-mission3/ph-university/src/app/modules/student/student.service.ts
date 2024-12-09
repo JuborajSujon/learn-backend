@@ -9,6 +9,8 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
   // {email: {$regex: query.searchTerm, $options: 'i' }}
   // {presentAddress: {$regex: query.searchTerm, $options: 'i' }}
   // {'name.firstName': {$regex: query.searchTerm, $options: 'i' }}
+
+  console.log(query);
   const queryObj = { ...query };
   const searchableFields = ['email', 'presentAddress', 'name.firstName'];
   let searchTerm = '';
@@ -27,7 +29,7 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
   });
 
   // filtering
-  const excludeFields = ['searchTerm', 'sort', 'limit'];
+  const excludeFields = ['searchTerm', 'sort', 'limit', 'page', 'fields'];
   excludeFields.forEach((field) => delete queryObj[field]);
 
   const filterQuery = searchQuery
@@ -48,15 +50,35 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
 
   const sortQuery = filterQuery.sort(sort);
 
+  let page = 1;
   let limit = 1;
+  let skip = 0;
 
   if (query.limit) {
     limit = Number(query.limit);
   }
 
-  const limitQuery = await sortQuery.limit(limit);
+  if (query.page) {
+    page = Number(query.page);
+    skip = (page - 1) * limit;
+  }
 
-  return limitQuery;
+  const paginationQuery = sortQuery.skip(skip);
+  const limitQuery = paginationQuery.limit(limit);
+
+  // fields limiting
+  let fields = '-__v';
+
+  // fields : "name,email" convert to
+  // fields : "name email"
+
+  if (query.fields) {
+    fields = (query.fields as string).split(',').join(' ');
+  }
+
+  const fieldQuery = await limitQuery.select(fields);
+
+  return fieldQuery;
 };
 
 const getSingleStudentFromDB = async (id: string) => {
