@@ -13,9 +13,11 @@ app.use(cors());
 //Appication routes
 app.use('/api/v1', router);
 
-app.get('/', (_req: Request, res: Response) => {
-  res.send('Home Router');
-});
+const test = (req: Request, res: Response) => {
+  res.send('Home Route');
+};
+
+app.get('/', test);
 
 app.use(globalErrorHandler);
 
