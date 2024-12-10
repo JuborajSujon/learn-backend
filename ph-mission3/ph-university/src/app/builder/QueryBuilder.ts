@@ -1,5 +1,4 @@
 import { FilterQuery, Query } from 'mongoose';
-import { number } from 'zod';
 
 class QueryBuilder<T> {
   public modelQuery: Query<T[], T>;
