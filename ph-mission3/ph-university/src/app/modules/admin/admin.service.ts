@@ -22,6 +22,7 @@ const getAllAdminsFromDB = async (query: Record<string, unknown>) => {
 
 const getSingleAdminFromDB = async (id: string) => {
   const result = await Admin.findById(id);
+  console.log(result);
   return result;
 };
 
@@ -38,7 +39,7 @@ const updateAdminIntoDB = async (id: string, payload: Partial<TAdmin>) => {
     }
   }
 
-  const result = await Admin.findByIdAndUpdate({ id }, modifiedUpdatedData, {
+  const result = await Admin.findByIdAndUpdate(id, modifiedUpdatedData, {
     new: true,
     runValidators: true,
   });
@@ -58,7 +59,7 @@ const deleteAdminFromDB = async (id: string) => {
     );
 
     if (!deletedAdmin) {
-      throw new AppError(status.BAD_REQUEST, 'Failed to delete student');
+      throw new AppError(status.BAD_REQUEST, 'Failed to delete admin');
     }
 
     // get user _id from deletedAdmin

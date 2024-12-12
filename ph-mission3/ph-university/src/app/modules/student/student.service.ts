@@ -107,7 +107,7 @@ const getSingleStudentFromDB = async (id: string) => {
   // const result = await Student.findOne({ id });
 
   const result = await Student.findById(id)
-    .populate('academicSemester')
+    .populate('admissionSemester')
     .populate({
       path: 'academicDepartment',
       populate: {
@@ -190,10 +190,11 @@ const deleteStudentFromDB = async (id: string) => {
     await session.endSession();
 
     return deletedStudent;
-  } catch (error) {
+  } catch (error: any) {
     await session.abortTransaction();
     await session.endSession();
     throw new Error('Failed to delete student');
+    // throw new Error(error);
   }
 };
 export const StudentServices = {
