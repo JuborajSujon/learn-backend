@@ -20,7 +20,9 @@ router.get(
 
 router.patch(
   '/:id',
-  // validateRequest(updateFacultyValidationSchema),
+  validateRequest(
+    SemesterRegistrationValidation.updateSemesterRegistrationValidationSchema,
+  ),
   SemesterRegistrationController.updateSemesterRegistration,
 );
 
