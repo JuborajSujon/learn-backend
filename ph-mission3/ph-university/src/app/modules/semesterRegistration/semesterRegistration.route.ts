@@ -26,7 +26,10 @@ router.patch(
   SemesterRegistrationController.updateSemesterRegistration,
 );
 
-// router.delete('/:id', SemesterRegistrationControllers.deleteFaculty);
+router.delete(
+  '/:id',
+  SemesterRegistrationController.deleteSemesterRegistration,
+);
 
 router.get('/', SemesterRegistrationController.getAllSemesterRegistrations);
 
