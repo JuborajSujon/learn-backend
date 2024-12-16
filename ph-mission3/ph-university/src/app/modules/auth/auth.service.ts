@@ -2,7 +2,8 @@ import status from 'http-status';
 import AppError from '../../errors/AppError';
 import { User } from '../user/user.model';
 import { TLoginUser } from './auth.interface';
-import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import config from '../../config';
 
 const loginUser = async (payload: TLoginUser) => {
   // check if the user exists
@@ -28,11 +29,22 @@ const loginUser = async (payload: TLoginUser) => {
     throw new AppError(status.FORBIDDEN, 'Password does not match !');
   }
 
-  // console.log(isPasswordMatched);
+  const jwtPayload = {
+    userId: user?.id,
+    role: user?.role,
+  };
+
+  // create token and send to the client
+  const accessToken = jwt.sign(jwtPayload, config.jwt_access_secret as string, {
+    expiresIn: '30d',
+  });
 
   // Access Granted : Send Access Token and Refresh Token
 
-  return {};
+  return {
+    accessToken,
+    needsPasswordChange: user?.needsPasswordChange,
+  };
 };
 
 export const AuthService = {
