@@ -45,6 +45,21 @@ const auth = (...requiredRoles: TUserRole[]) => {
       throw new AppError(httpStatus.FORBIDDEN, 'This user is blocked !');
     }
 
+    // check if jwt issued timestamp less then password change timestamp
+
+    if (
+      user.passwordChangedAt &&
+      User.isJwtIssuedBeforePasswordChange(
+        user.passwordChangedAt,
+        iat as number,
+      )
+    ) {
+      throw new AppError(
+        httpStatus.UNAUTHORIZED,
+        "You're unauthrized to perform this action!",
+      );
+    }
+
     // check if user has required role
     if (requiredRoles && !requiredRoles.includes(role)) {
       throw new AppError(httpStatus.FORBIDDEN, 'You are not authorized!');
