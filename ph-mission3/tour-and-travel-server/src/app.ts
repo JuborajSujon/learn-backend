@@ -1,7 +1,8 @@
-import express, { NextFunction, Request, Response } from 'express'
+import express, { Request, Response } from 'express'
 import userRouter from './module/user/user.router'
 import tourRouter from './module/tour/tour.route'
 import bookingRouter from './module/booking/booking.route'
+import { globalErrorHandler } from './middlewares/globalErrorHandler'
 
 const app = express()
 
@@ -21,13 +22,6 @@ app.get('/', (req: Request, res: Response) => {
   })
 })
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
-app.use((err: any, req: Request, res: Response, _next: NextFunction) => {
-  res.status(500).json({
-    success: false,
-    message: err.message,
-    error: err,
-  })
-})
+app.use(globalErrorHandler)
 
 export default app
