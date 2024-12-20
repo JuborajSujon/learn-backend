@@ -24,4 +24,11 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use(globalErrorHandler)
 
+app.get('*', (req: Request, res: Response) => {
+  res.status(404).json({
+    status: false,
+    message: 'Route not found',
+  })
+})
+
 export default app
