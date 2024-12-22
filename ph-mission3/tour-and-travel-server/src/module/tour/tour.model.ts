@@ -28,48 +28,48 @@ const tourSchema = new Schema<ITour, TTourModel, ITourMethods>({
 
 // StaticRange, instance
 
-// tourSchema.methods.getNextNearestStartDateAndEndData = function () {
-//   const today = new Date()
+tourSchema.methods.getNextNearestStartDateAndEndData = function () {
+  const today = new Date()
 
-//   const futureDates = this.startDates.filter((startDate: Date) => {
-//     return startDate > today
-//   })
+  const futureDates = this.startDates.filter((startDate: Date) => {
+    return startDate > today
+  })
 
-//   futureDates.sort((a: Date, b: Date) => a.getTime() - b.getDate())
+  futureDates.sort((a: Date, b: Date) => a.getTime() - b.getDate())
 
-//   const nearestStartDate = futureDates[0]
-//   const estimatedEndDate = new Date(
-//     nearestStartDate.getTime() + this.durationHours * 60 * 60 * 1000
-//   )
+  const nearestStartDate = futureDates[0]
+  const estimatedEndDate = new Date(
+    nearestStartDate.getTime() + this.durationHours * 60 * 60 * 1000
+  )
 
-//   return {
-//     nearestStartDate,
-//     estimatedEndDate,
-//   }
-// }
-
-tourSchema.static(
-  'getNextNearestStartDateAndEndData',
-  function getNextNearestStartDateAndEndData() {
-    const today = new Date()
-
-    const futureDates = this.startDates.filter((startDate: Date) => {
-      return startDate > today
-    })
-
-    futureDates.sort((a: Date, b: Date) => a.getTime() - b.getDate())
-
-    const nearestStartDate = futureDates[0]
-    const estimatedEndDate = new Date(
-      nearestStartDate.getTime() + this.durationHours * 60 * 60 * 1000
-    )
-
-    return {
-      nearestStartDate,
-      estimatedEndDate,
-    }
+  return {
+    nearestStartDate,
+    estimatedEndDate,
   }
-)
+}
+
+// tourSchema.static(
+//   'getNextNearestStartDateAndEndData',
+//   function getNextNearestStartDateAndEndData() {
+//     const today = new Date()
+
+//     const futureDates = this.startDates.filter((startDate: Date) => {
+//       return startDate > today
+//     })
+
+//     futureDates.sort((a: Date, b: Date) => a.getTime() - b.getDate())
+
+//     const nearestStartDate = futureDates[0]
+//     const estimatedEndDate = new Date(
+//       nearestStartDate.getTime() + this.durationHours * 60 * 60 * 1000
+//     )
+
+//     return {
+//       nearestStartDate,
+//       estimatedEndDate,
+//     }
+//   }
+// )
 
 const Tour = model<ITour, TTourModel>('Tour', tourSchema)
 
