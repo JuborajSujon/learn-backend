@@ -8,7 +8,8 @@ const userSchema = new Schema<IUser>({
     minlength: 3,
     maxlength: 50,
   },
-  age: { type: Number, required: [true, 'Please enter your age'] },
+  // age: { type: Number, required: [true, 'Please enter your age'] },
+  age: { type: Number },
   email: {
     type: String,
     required: [true, 'Please provide your email'],
@@ -20,6 +21,10 @@ const userSchema = new Schema<IUser>({
       message: '{VALUE} is not a valid email',
     },
     immutable: true,
+  },
+  password: {
+    type: String,
+    required: [true, 'Please provide your password'],
   },
   photo: String,
   role: {
