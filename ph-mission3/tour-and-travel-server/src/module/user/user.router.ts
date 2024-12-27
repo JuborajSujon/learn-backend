@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response, Router } from 'express'
 import { userController } from './user.controller'
 import { userValidation } from './user.validation'
+import auth from '../../middlewares/auth'
 
 const userRouter = Router()
 
@@ -23,6 +24,6 @@ userRouter.post(
 userRouter.get('/:userId', userController.getSingleUser)
 userRouter.put('/:userId', userController.updateUser)
 userRouter.delete('/:userId', userController.deleteUser)
-userRouter.get('/', userController.getUser)
+userRouter.get('/', auth('admin', 'user'), userController.getUser)
 
 export default userRouter
