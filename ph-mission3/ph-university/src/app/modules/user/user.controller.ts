@@ -2,6 +2,7 @@ import { UserServices } from './user.service';
 import sendResponse from '../../utils/sendResponse';
 import status from 'http-status';
 import catchAsync from '../../utils/CatchAsync';
+import AppError from '../../errors/AppError';
 
 const createStudent = catchAsync(async (req, res) => {
   // creating a schema to validate by zod
@@ -45,8 +46,26 @@ const createAdmin = catchAsync(async (req, res) => {
   });
 });
 
+const getMe = catchAsync(async (req, res) => {
+  const token = req.headers.authorization as string;
+
+  if (!token) {
+    throw new AppError(status.NOT_FOUND, 'Token is not found');
+  }
+
+  const result = await UserServices.getMeFromDB(token);
+
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: 'User is retrieved succesfully',
+    data: result,
+  });
+});
+
 export const UserControllers = {
   createStudent,
   createFaculty,
   createAdmin,
+  getMe,
 };
