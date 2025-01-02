@@ -9,6 +9,7 @@ import httpStatus from 'http-status';
 import { SemesterRegistration } from '../semesterRegistration/semesterRegistration.model';
 import { Course } from '../course/course.model';
 import { Faculty } from '../faculty/faculty.model';
+import { calculateGradeAndPoint } from './enrolledCourse.utils';
 
 const createEnrolledCourseIntoDB = async (
   userId: string,
@@ -205,6 +206,15 @@ const updateEnrolledCourseMarksIntoDB = async (
       Math.ceil(midTerm * 0.3) +
       Math.ceil(classTest2 * 0.1) +
       Math.ceil(finalTerm * 0.5);
+    console.log(totalMarks);
+
+    const result = calculateGradeAndPoint(totalMarks);
+
+    modifiedData.grade = result.grade;
+    modifiedData.gradePoints = result.gradePoints;
+    modifiedData.isCompleted = true;
+
+    console.log('grade and gradePoint', result);
   }
 
   if (courseMarks && Object.keys(courseMarks).length) {

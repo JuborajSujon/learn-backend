@@ -17,30 +17,22 @@ export const calculateGradeAndPoint = (totalMarks: number) => {
       grade: 'F',
       gradePoints: 0.0,
     };
-  }
-
-  if (totalMarks >= 20 && totalMarks <= 39) {
+  } else if (totalMarks >= 20 && totalMarks <= 39) {
     resutl = {
       grade: 'D',
       gradePoints: 2.0,
     };
-  }
-
-  if (totalMarks >= 40 && totalMarks <= 59) {
+  } else if (totalMarks >= 40 && totalMarks <= 59) {
     resutl = {
       grade: 'C',
       gradePoints: 3.0,
     };
-  }
-
-  if (totalMarks >= 60 && totalMarks <= 79) {
+  } else if (totalMarks >= 60 && totalMarks <= 79) {
     resutl = {
       grade: 'B',
       gradePoints: 3.5,
     };
-  }
-
-  if (totalMarks >= 80 && totalMarks <= 100) {
+  } else if (totalMarks >= 80 && totalMarks <= 100) {
     resutl = {
       grade: 'A',
       gradePoints: 4.0,
