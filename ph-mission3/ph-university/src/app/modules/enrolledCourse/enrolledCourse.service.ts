@@ -7,16 +7,17 @@ import { TEnrolledCourse } from './enrolledCourse.interface';
 import EnrolledCourse from './enrolledCourse.model';
 import httpStatus from 'http-status';
 import { SemesterRegistration } from '../semesterRegistration/semesterRegistration.model';
+import { Course } from '../course/course.model';
 
 const createEnrolledCourseIntoDB = async (
   userId: string,
   payload: TEnrolledCourse,
 ) => {
   /**
-   * Step1: check if the offered courses is exists
-   * Step2: check if the student is already enrolled
-   * Step3: create enrolled course
-   *
+   * Step1: Check if the offered cousres is exists
+   * Step2: Check if the student is already enrolled
+   * Step3: Check if the max credits exceed
+   * Step4: Create an enrolled course
    */
 
   const { offeredCourse } = payload;
@@ -51,6 +52,8 @@ const createEnrolledCourseIntoDB = async (
   }
 
   // check total credits exceeds maxCredits
+  const course = await Course.findById(isOfferedCourseExists.course);
+  const currentCredit = course?.credits;
 
   const semesterRegistration = await SemesterRegistration.findById(
     isOfferedCourseExists?.semesterRegistration,
@@ -93,6 +96,13 @@ const createEnrolledCourseIntoDB = async (
 
   const totalCredits =
     enrolledCourses.length > 0 ? enrolledCourses[0].totalEnrolledCredits : 0;
+
+  if (totalCredits && maxCredit && totalCredits + currentCredit > maxCredit) {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      'You have exceeded maximum number of credits !',
+    );
+  }
 
   const session = await mongoose.startSession();
 
