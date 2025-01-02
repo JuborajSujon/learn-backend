@@ -6,6 +6,7 @@ import { Student } from '../student/student.model';
 import { TEnrolledCourse } from './enrolledCourse.interface';
 import EnrolledCourse from './enrolledCourse.model';
 import httpStatus from 'http-status';
+import { SemesterRegistration } from '../semesterRegistration/semesterRegistration.model';
 
 const createEnrolledCourseIntoDB = async (
   userId: string,
@@ -48,6 +49,47 @@ const createEnrolledCourseIntoDB = async (
   if (isStudentAlreadyEnrolled) {
     throw new AppError(httpStatus.CONFLICT, 'Student already enrolled');
   }
+
+  // check total credits exceeds maxCredits
+
+  const semesterRegistration = await SemesterRegistration.findById(
+    isOfferedCourseExists?.semesterRegistration,
+  ).select('maxCredits');
+
+  const maxCredit = semesterRegistration?.maxCredit;
+  const enrolledCourses = await EnrolledCourse.aggregate([
+    {
+      $match: {
+        semesterRegistration: isOfferedCourseExists.semesterRegistration,
+        student: student._id,
+      },
+    },
+    {
+      $lookup: {
+        from: 'courses',
+        localField: 'course',
+        foreignField: '_id',
+        as: 'enrolledCourseData',
+      },
+    },
+    {
+      $unwind: '$enrolledCourseData',
+    },
+    {
+      $group: {
+        _id: null,
+        totalEnrolledCredits: { $sum: '$enrolledCourseData.credits' },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        totalEnrolledCredits: 1,
+      },
+    },
+  ]);
+
+  // total enrolled credits  +  new enrolled course credit > max credits
 
   const session = await mongoose.startSession();
 
