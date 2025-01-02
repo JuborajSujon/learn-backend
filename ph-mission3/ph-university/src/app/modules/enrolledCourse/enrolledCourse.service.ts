@@ -91,6 +91,9 @@ const createEnrolledCourseIntoDB = async (
 
   // total enrolled credits  +  new enrolled course credit > max credits
 
+  const totalCredits =
+    enrolledCourses.length > 0 ? enrolledCourses[0].totalEnrolledCredits : 0;
+
   const session = await mongoose.startSession();
 
   try {
