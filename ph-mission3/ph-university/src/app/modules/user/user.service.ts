@@ -21,6 +21,7 @@ import {
 import { verifyToken } from '../auth/auth.utils';
 import { JwtPayload } from 'jsonwebtoken';
 import { Request } from 'express';
+import { sendImageToCloudinary } from '../../utils/sendImageToCloudinary';
 
 const createStudentIntoDB = async (password: string, payload: TStudent) => {
   // create a user object
@@ -48,6 +49,9 @@ const createStudentIntoDB = async (password: string, payload: TStudent) => {
     userData.id = await generatedStudentId(
       admissionSemester as TAcademicSemester,
     );
+
+    // send image to cloudinary
+    sendImageToCloudinary();
 
     // create a new user (transaction - 1)
     const newUser = await User.create([userData], { session }); // after transaction value will be set array
