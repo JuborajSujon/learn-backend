@@ -5,20 +5,22 @@ import catchAsync from '../../utils/CatchAsync';
 // import AppError from '../../errors/AppError';
 
 const createStudent = catchAsync(async (req, res) => {
-  console.log('file', req.file);
-  console.log('body', req.body);
   // creating a schema to validate by zod
-  // const { password, student: studentData } = req.body;
+  const { password, student: studentData } = req.body;
 
   // Will call service func to send this data
-  // const result = await UserServices.createStudentIntoDB(password, studentData);
+  const result = await UserServices.createStudentIntoDB(
+    req.file,
+    password,
+    studentData,
+  );
 
   // send response
   sendResponse(res, {
     statusCode: status.OK,
     success: true,
     message: 'User created successfully',
-    data: null,
+    data: result,
   });
 });
 
