@@ -10,6 +10,8 @@ import { TOfferedCourse } from './offeredCourse.interface';
 import { OfferedCourse } from './offeredCourse.model';
 import { hasTimeConflict } from './offeredCourse.utils';
 import { Student } from '../student/student.model';
+import { AcademicDepartment } from './../academicDepartment/academicDepartment.model';
+import { AcademicFaculty } from './../academicFaculty/academicFaculty.model';
 
 const createOfferedCourseIntoDB = async (payload: TOfferedCourse) => {
   const {
@@ -151,11 +153,38 @@ const getMyOfferedCoursesFromDB = async (userId: string) => {
     throw new AppError(status.NOT_FOUND, 'Student not found !');
   }
 
-  // find current ongoing semester registration
-  const currentOngoingSemester = await SemesterRegistration.findOne({
-    status: 'ONGOING',
-  });
-  return currentOngoingSemester;
+  //find current ongoing semester
+  const currentOngoingRegistrationSemester = await SemesterRegistration.findOne(
+    {
+      status: 'ONGOING',
+    },
+  );
+
+  if (!currentOngoingRegistrationSemester) {
+    throw new AppError(
+      status.NOT_FOUND,
+      'There is no ongoing semester registration!',
+    );
+  }
+
+  const result = await OfferedCourse.aggregate([
+    {
+      $match: {
+        semesterRegistration: currentOngoingRegistrationSemester?._id,
+        academicFaculty: student.academicFaculty,
+        academicDepartment: student.academicDepartment,
+      },
+    },
+    {
+      $lookup: {
+        from: 'courses',
+        localField: 'course',
+        foreignField: '_id',
+        as: 'course',
+      },
+    },
+  ]);
+  return result;
 };
 
 const getSingleOfferedCourseFromDB = async (id: string) => {
