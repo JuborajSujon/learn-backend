@@ -9,6 +9,7 @@ import { SemesterRegistration } from '../semesterRegistration/semesterRegistrati
 import { TOfferedCourse } from './offeredCourse.interface';
 import { OfferedCourse } from './offeredCourse.model';
 import { hasTimeConflict } from './offeredCourse.utils';
+import { Student } from '../student/student.model';
 
 const createOfferedCourseIntoDB = async (payload: TOfferedCourse) => {
   const {
@@ -136,7 +137,25 @@ const getAllOfferedCoursesFromDB = async (query: Record<string, unknown>) => {
     .fields();
 
   const result = await offeredCourseQuery.modelQuery;
-  return result;
+  const meta = await offeredCourseQuery.countTotal();
+  return {
+    meta,
+    result,
+  };
+};
+
+const getMyOfferedCoursesFromDB = async (userId: string) => {
+  const student = await Student.findOne({ id: userId });
+
+  if (!student) {
+    throw new AppError(status.NOT_FOUND, 'Student not found !');
+  }
+
+  // find current ongoing semester registration
+  const currentOngoingSemester = await SemesterRegistration.findOne({
+    status: 'ONGOING',
+  });
+  return currentOngoingSemester;
 };
 
 const getSingleOfferedCourseFromDB = async (id: string) => {
@@ -246,6 +265,7 @@ const deleteOfferedCourseFromDB = async (id: string) => {
 export const OfferedCourseServices = {
   createOfferedCourseIntoDB,
   getAllOfferedCoursesFromDB,
+  getMyOfferedCoursesFromDB,
   getSingleOfferedCourseFromDB,
   deleteOfferedCourseFromDB,
   updateOfferedCourseIntoDB,
