@@ -10,8 +10,6 @@ import { TOfferedCourse } from './offeredCourse.interface';
 import { OfferedCourse } from './offeredCourse.model';
 import { hasTimeConflict } from './offeredCourse.utils';
 import { Student } from '../student/student.model';
-import { AcademicDepartment } from './../academicDepartment/academicDepartment.model';
-import { AcademicFaculty } from './../academicFaculty/academicFaculty.model';
 
 const createOfferedCourseIntoDB = async (payload: TOfferedCourse) => {
   const {
@@ -181,6 +179,54 @@ const getMyOfferedCoursesFromDB = async (userId: string) => {
         localField: 'course',
         foreignField: '_id',
         as: 'course',
+      },
+    },
+    {
+      $unwind: '$course',
+    },
+    {
+      $lookup: {
+        from: 'enrolledcourses',
+        let: {
+          currentOngoingRegistrationSemester:
+            currentOngoingRegistrationSemester._id,
+          currentStudent: student._id,
+        },
+        pipeline: [
+          {
+            $match: {
+              $expr: {
+                $and: [
+                  {
+                    $eq: [
+                      '$semesterRegistration',
+                      '$$currentOngoingRegistrationSemester',
+                    ],
+                  },
+                  {
+                    $eq: ['$student', '$$currentStudent'],
+                  },
+                  {
+                    $eq: ['$isEnrolled', true],
+                  },
+                ],
+              },
+            },
+          },
+        ],
+        as: 'enrolledCourses',
+      },
+    },
+    {
+      $addFields: {
+        $in: [
+          'course._id',
+          {
+            $map: {
+              input: '$enrolledCourses',
+            },
+          },
+        ],
       },
     },
   ]);
