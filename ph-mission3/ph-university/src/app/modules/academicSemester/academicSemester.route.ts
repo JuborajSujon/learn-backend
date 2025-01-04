@@ -15,18 +15,6 @@ router.post(
   AcademicSemesterControllers.createAcademicSemester,
 );
 
-// get all academic semesters route
-router.get(
-  '/',
-  auth(
-    USER_ROLE.superAdmin,
-    USER_ROLE.admin,
-    USER_ROLE.faculty,
-    USER_ROLE.student,
-  ),
-  AcademicSemesterControllers.getAllAcademicSemesters,
-);
-
 // get single academic semester route
 router.get(
   '/:semesterId',
@@ -45,6 +33,18 @@ router.patch(
   auth(USER_ROLE.superAdmin, USER_ROLE.admin),
   validateRequest(AcademicSemesterValidations.updateAcademicSemesterZodSchema),
   AcademicSemesterControllers.updateAcademicSemester,
+);
+
+// get all academic semesters route
+router.get(
+  '/',
+  auth(
+    USER_ROLE.superAdmin,
+    USER_ROLE.admin,
+    USER_ROLE.faculty,
+    USER_ROLE.student,
+  ),
+  AcademicSemesterControllers.getAllAcademicSemesters,
 );
 
 export const AcademicSemesterRoutes = router;
