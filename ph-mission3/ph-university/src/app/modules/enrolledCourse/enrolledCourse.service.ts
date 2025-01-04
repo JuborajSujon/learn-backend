@@ -202,19 +202,16 @@ const updateEnrolledCourseMarksIntoDB = async (
       isCourseBelongToFaculty.courseMarks;
 
     const totalMarks =
-      Math.ceil(classTest1 * 0.1) +
-      Math.ceil(midTerm * 0.3) +
-      Math.ceil(classTest2 * 0.1) +
-      Math.ceil(finalTerm * 0.5);
-    console.log(totalMarks);
+      Math.ceil(classTest1) +
+      Math.ceil(midTerm) +
+      Math.ceil(classTest2) +
+      Math.ceil(finalTerm);
 
     const result = calculateGradeAndPoint(totalMarks);
 
     modifiedData.grade = result.grade;
     modifiedData.gradePoints = result.gradePoints;
     modifiedData.isCompleted = true;
-
-    console.log('grade and gradePoint', result);
   }
 
   if (courseMarks && Object.keys(courseMarks).length) {
