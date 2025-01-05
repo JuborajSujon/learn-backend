@@ -40,3 +40,28 @@ const employee2 = produce(employee, (draft) => {
 
 console.log(employee);
 console.log(employee2);
+
+// currying / Function composition
+
+function addCurried(a) {
+  return function (b) {
+    return a + b;
+  };
+}
+
+const addCurried2 = (a) => (b) => a + b;
+
+console.log(addCurried(0)(1));
+console.log(addCurried2(0)(1));
+
+// const totalPrice = (amount, discount) => {
+//   return amount - amount * discount;
+// };
+// console.log("totalPrice", totalPrice(100, 0.1));
+
+const totalPrice = (discount) => (amount) => amount - amount * discount;
+const withDiscount = totalPrice(0.1);
+
+console.log("withDiscount", withDiscount(100));
+console.log("withDiscount", withDiscount(200));
+console.log("withDiscount", withDiscount(300));
