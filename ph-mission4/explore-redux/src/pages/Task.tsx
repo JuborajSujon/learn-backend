@@ -12,8 +12,8 @@ const Task = () => {
         <AddTaskModal />
       </div>
       <div className="space-y-5 mt-5">
-        {tasks.map((task, index) => (
-          <TaskCard key={index} task={task} />
+        {tasks.map((task) => (
+          <TaskCard key={task.id} task={task} />
         ))}
       </div>
     </div>
