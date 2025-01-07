@@ -1,6 +1,7 @@
 import { RootState } from "@/redux/store";
 import { ITask } from "@/types";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { v4 as uuidv4 } from "uuid";
 
 interface InitialState {
   tasks: ITask[];
@@ -8,24 +9,7 @@ interface InitialState {
 }
 
 const initialState: InitialState = {
-  tasks: [
-    {
-      id: "asdfasdfasf",
-      title: "Initialize frontend",
-      description: "Create home page and routing",
-      dueDate: "2022-01-01",
-      priority: "High",
-      isCompleted: false,
-    },
-    {
-      id: "asdfasdfasadff",
-      title: "Init github repo",
-      description: "Create stage branch",
-      dueDate: "2022-01-01",
-      priority: "Medium",
-      isCompleted: false,
-    },
-  ],
+  tasks: [],
 
   filter: "all",
 };
@@ -33,7 +17,13 @@ const initialState: InitialState = {
 const taskSlice = createSlice({
   name: "task",
   initialState,
-  reducers: {},
+  reducers: {
+    addTask: (state, action: PayloadAction<ITask>) => {
+      const id = uuidv4();
+      const newTask = { ...action.payload, id, isCompleted: false };
+      state.tasks.push(newTask);
+    },
+  },
 });
 
 export const selectTasks = (state: RootState) => {
@@ -43,5 +33,7 @@ export const selectTasks = (state: RootState) => {
 export const selectFilteredTasks = (state: RootState) => {
   return state.todo.filter;
 };
+
+export const { addTask } = taskSlice.actions;
 
 export default taskSlice.reducer;
