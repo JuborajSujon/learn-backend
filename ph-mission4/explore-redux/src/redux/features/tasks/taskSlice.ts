@@ -12,9 +12,17 @@ const initialState: InitialState = {
     {
       id: "asdfasdfasf",
       title: "Initialize frontend",
-      description: "create home page and routing",
+      description: "Create home page and routing",
       dueDate: "2022-01-01",
       priority: "High",
+      isCompleted: false,
+    },
+    {
+      id: "asdfasdfasf",
+      title: "Init github repo",
+      description: "Create stage branch",
+      dueDate: "2022-01-01",
+      priority: "Medium",
       isCompleted: false,
     },
   ],
