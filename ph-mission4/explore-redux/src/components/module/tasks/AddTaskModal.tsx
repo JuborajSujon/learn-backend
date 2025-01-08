@@ -30,7 +30,8 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { addTask } from "@/redux/features/tasks/taskSlice";
-import { useAppDispatch } from "@/redux/hook";
+import { selectUsers } from "@/redux/features/users/userSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { ITask } from "@/types";
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { SelectTrigger } from "@radix-ui/react-select";
@@ -39,12 +40,12 @@ import { CalendarIcon } from "lucide-react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 const AddTaskModal = () => {
+  const users = useAppSelector(selectUsers);
   const form = useForm();
 
   const dispatch = useAppDispatch();
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
     dispatch(addTask(data as ITask));
   };
   return (
@@ -143,6 +144,32 @@ const AddTaskModal = () => {
                       <SelectItem value="Low">Low</SelectItem>
                       <SelectItem value="Medium">Medium</SelectItem>
                       <SelectItem value="High">High</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="assignedTo"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Assign To</FormLabel>
+                  <br />
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger className="w-full text-left">
+                        <SelectValue placeholder="Select a prioroty" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {users.map((user) => (
+                        <SelectItem key={user.id} value={user.id}>
+                          {user.name}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 </FormItem>

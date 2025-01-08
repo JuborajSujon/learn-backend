@@ -5,7 +5,8 @@ import {
   deleteTask,
   toggleCompleteState,
 } from "@/redux/features/tasks/taskSlice";
-import { useAppDispatch } from "@/redux/hook";
+import { selectUsers } from "@/redux/features/users/userSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { ITask } from "@/types";
 import { Trash2 } from "lucide-react";
 
@@ -15,6 +16,10 @@ interface IProps {
 
 const TaskCard = ({ task }: IProps) => {
   const dispatch = useAppDispatch();
+
+  const users = useAppSelector(selectUsers);
+
+  const assignedUser = users.find((user) => user?.id === task?.assignedTo);
 
   return (
     <div className="border px-5 py-3 rounded-md">
@@ -43,7 +48,10 @@ const TaskCard = ({ task }: IProps) => {
           />
         </div>
       </div>
-      <p className="mt-5">{task?.description}</p>
+      <p className="mt-5">
+        Assigned To - {assignedUser ? assignedUser?.name : "No one"}
+      </p>
+      <p className="mt-1">{task?.description}</p>
     </div>
   );
 };
