@@ -1,7 +1,6 @@
 import { RootState } from "@/redux/store";
 import { ITask } from "@/types";
 import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
-import { v4 as uuidv4 } from "uuid";
 
 interface InitialState {
   tasks: ITask[];
@@ -9,7 +8,16 @@ interface InitialState {
 }
 
 const initialState: InitialState = {
-  tasks: [],
+  tasks: [
+    {
+      id: "ODUJ_V_0Ia1VfEpgCWpHe",
+      isCompleted: false,
+      title: "adsfadf",
+      description: "adfaga",
+      dueDate: "2025-01-28T18:00:00.000Z",
+      priority: "Medium",
+    },
+  ],
 
   filter: "all",
 };
@@ -32,6 +40,16 @@ const taskSlice = createSlice({
       const newTask = createTask(action.payload);
       state.tasks.push(newTask);
     },
+    toggleCompleteState: (state, action: PayloadAction<string>) => {
+      state.tasks.forEach((task) =>
+        task.id === action.payload
+          ? (task.isCompleted = !task.isCompleted)
+          : task
+      );
+    },
+    deleteTask: (state, action: PayloadAction<string>) => {
+      state.tasks = state.tasks.filter((task) => task.id !== action.payload);
+    },
   },
 });
 
@@ -43,6 +61,6 @@ export const selectFilteredTasks = (state: RootState) => {
   return state.todo.filter;
 };
 
-export const { addTask } = taskSlice.actions;
+export const { addTask, toggleCompleteState, deleteTask } = taskSlice.actions;
 
 export default taskSlice.reducer;
