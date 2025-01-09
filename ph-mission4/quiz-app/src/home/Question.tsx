@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -6,20 +7,42 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { selectQuiz, setAnswer } from "@/redux/features/quiz/quizSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import QuizControl from "./QuizControl";
 
 export default function Question() {
+  const { question, currentQuestionIndex } = useAppSelector(selectQuiz);
+  const dispatch = useAppDispatch();
+
+  const currentQuestion = question[currentQuestionIndex];
+
+  const handleAnswerChange = (answer: string) => {
+    dispatch(setAnswer({ questionIndex: currentQuestionIndex, answer }));
+  };
+
   return (
     <div>
-      <Card className="w-[350px]">
+      <Card className="w-[450px]">
         <CardHeader>
-          <CardTitle>Create project</CardTitle>
           <CardDescription>
-            Deploy your new project in one-click.
+            {currentQuestionIndex + 1} of {question.length}
           </CardDescription>
+          <CardTitle>{currentQuestion.question}</CardTitle>
         </CardHeader>
-        <CardContent></CardContent>
+        <CardContent>
+          {currentQuestion.options.map((option, index) => (
+            <Button
+              onClick={() => handleAnswerChange(option)}
+              size={"lg"}
+              key={index}
+              className="w-full mt-3">
+              {option}
+            </Button>
+          ))}
+        </CardContent>
         <CardFooter className="flex justify-between">
-          button component
+          <QuizControl />
         </CardFooter>
       </Card>
     </div>
