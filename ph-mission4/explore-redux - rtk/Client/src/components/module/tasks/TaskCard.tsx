@@ -1,12 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
-import {
-  deleteTask,
-  toggleCompleteState,
-} from "@/redux/features/tasks/taskSlice";
-import { selectUsers } from "@/redux/features/users/userSlice";
-import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { ITask } from "@/types";
 import { Trash2 } from "lucide-react";
 
@@ -15,12 +9,6 @@ interface IProps {
 }
 
 const TaskCard = ({ task }: IProps) => {
-  const dispatch = useAppDispatch();
-
-  const users = useAppSelector(selectUsers);
-
-  const assignedUser = users.find((user) => user?.id === task?.assignedTo);
-
   return (
     <div className="border px-5 py-3 rounded-md">
       <div className="flex justify-between items-center">
@@ -36,21 +24,13 @@ const TaskCard = ({ task }: IProps) => {
           </h1>
         </div>
         <div className="flex gap-3 items-center">
-          <Button
-            onClick={() => dispatch(deleteTask(task?.id))}
-            variant="link"
-            className="p-0 text-red-500">
+          <Button variant="link" className="p-0 text-red-500">
             <Trash2 />
           </Button>
-          <Checkbox
-            checked={task?.isCompleted}
-            onClick={() => dispatch(toggleCompleteState(task?.id))}
-          />
+          <Checkbox checked={task?.isCompleted} />
         </div>
       </div>
-      <p className="mt-5">
-        Assigned To - {assignedUser ? assignedUser?.name : "No one"}
-      </p>
+      <p className="mt-5">Assigned To - {"No one"}</p>
       <p className="mt-1">{task?.description}</p>
     </div>
   );
