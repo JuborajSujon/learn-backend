@@ -1,5 +1,5 @@
 export interface ITask {
-  id: string;
+  _id?: string;
   title: string;
   description: string;
   dueDate: string;
@@ -9,6 +9,6 @@ export interface ITask {
 }
 
 export interface IUser {
-  id: string;
+  _id?: string;
   name: string;
 }
