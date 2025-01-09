@@ -12,10 +12,12 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import QuizControl from "./QuizControl";
 
 export default function Question() {
-  const { question, currentQuestionIndex } = useAppSelector(selectQuiz);
+  const { question, currentQuestionIndex, userAnswers } =
+    useAppSelector(selectQuiz);
   const dispatch = useAppDispatch();
 
   const currentQuestion = question[currentQuestionIndex];
+  const currentAnswer = userAnswers[currentQuestionIndex];
 
   const handleAnswerChange = (answer: string) => {
     dispatch(setAnswer({ questionIndex: currentQuestionIndex, answer }));
@@ -36,7 +38,8 @@ export default function Question() {
               onClick={() => handleAnswerChange(option)}
               size={"lg"}
               key={index}
-              className="w-full mt-3">
+              className="w-full mt-3"
+              variant={option === currentAnswer ? "default" : "outline"}>
               {option}
             </Button>
           ))}

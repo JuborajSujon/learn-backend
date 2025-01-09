@@ -25,10 +25,25 @@ export const quizSlice = createSlice({
       const { questionIndex, answer } = action.payload;
       state.userAnswers[questionIndex] = answer;
     },
+    nextQuestion: (state) => {
+      if (state.currentQuestionIndex < state.question.length - 1) {
+        state.currentQuestionIndex += 1;
+      }
+    },
+    previousQuestion: (state) => {
+      if (state.currentQuestionIndex > 0) {
+        state.currentQuestionIndex -= 1;
+      }
+    },
+
+    completedQuiz: (state) => {
+      state.quizComplete = true;
+    },
   },
 });
 
-export const { setAnswer } = quizSlice.actions;
+export const { setAnswer, nextQuestion, previousQuestion, completedQuiz } =
+  quizSlice.actions;
 
 export const selectQuiz = (state: RootState) => state.quiz;
 
