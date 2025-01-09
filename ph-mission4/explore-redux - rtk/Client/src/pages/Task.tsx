@@ -11,7 +11,6 @@ const Task = () => {
     return <div>Loading...</div>;
   }
 
-  console.log({ data, isLoading });
   return (
     <div className="mx-auto max-w-7xl px-5 mt-20">
       <div className="flex justify-end items-center gap-5">
@@ -30,7 +29,7 @@ const Task = () => {
       <div className="space-y-5 mt-5">
         {!isLoading &&
           data.tasks.map((task: ITask) => (
-            <TaskCard key={task.id} task={task} />
+            <TaskCard key={task._id} task={task} />
           ))}
       </div>
     </div>

@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { useCreateTasksMutation } from "@/redux/api/baseApi";
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { SelectTrigger } from "@radix-ui/react-select";
 import { format } from "date-fns";
@@ -41,8 +42,17 @@ const AddTaskModal = () => {
 
   const form = useForm();
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+  const [createTask, { data, isLoading, isError }] = useCreateTasksMutation();
+
+  console.log("Initial Data", { data, isLoading, isError });
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const taskData = {
+      ...data,
+      isCompleted: false,
+    };
+    const res = await createTask(taskData).unwrap();
+    console.log("Inside AddTaskModal", res);
     form.reset();
     setOpen(false);
   };
@@ -139,9 +149,9 @@ const AddTaskModal = () => {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="Low">Low</SelectItem>
-                      <SelectItem value="Medium">Medium</SelectItem>
-                      <SelectItem value="High">High</SelectItem>
+                      <SelectItem value="low">Low</SelectItem>
+                      <SelectItem value="medium">Medium</SelectItem>
+                      <SelectItem value="high">High</SelectItem>
                     </SelectContent>
                   </Select>
                 </FormItem>
