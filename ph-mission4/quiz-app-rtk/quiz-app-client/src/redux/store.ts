@@ -7,6 +7,8 @@ export const store = configureStore({
     quiz: quizSlice.reducer,
     [quizApi.reducerPath]: quizApi.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(quizApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

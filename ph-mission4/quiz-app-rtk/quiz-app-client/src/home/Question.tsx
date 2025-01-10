@@ -25,29 +25,31 @@ export default function Question() {
 
   return (
     <div>
-      <Card className="w-[450px]">
-        <CardHeader>
-          <CardDescription>
-            {currentQuestionIndex + 1} of {question.length}
-          </CardDescription>
-          <CardTitle>{currentQuestion.question}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          {currentQuestion.options.map((option, index) => (
-            <Button
-              onClick={() => handleAnswerChange(option)}
-              size={"lg"}
-              key={index}
-              className="w-full mt-3"
-              variant={option === currentAnswer ? "default" : "outline"}>
-              {option}
-            </Button>
-          ))}
-        </CardContent>
-        <CardFooter className="flex justify-between">
-          <QuizControl />
-        </CardFooter>
-      </Card>
+      {question.length > 0 && (
+        <Card className="w-[450px]">
+          <CardHeader>
+            <CardDescription>
+              {currentQuestionIndex + 1} of {question.length}
+            </CardDescription>
+            <CardTitle>{currentQuestion.question}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {currentQuestion.options.map((option, index) => (
+              <Button
+                onClick={() => handleAnswerChange(option)}
+                size={"lg"}
+                key={index}
+                className="w-full mt-3"
+                variant={option === currentAnswer ? "default" : "outline"}>
+                {option}
+              </Button>
+            ))}
+          </CardContent>
+          <CardFooter className="flex justify-between">
+            <QuizControl />
+          </CardFooter>
+        </Card>
+      )}
     </div>
   );
 }
