@@ -25,7 +25,7 @@ type QuizData = {
 };
 
 export default function AddQuiz() {
-  const [addQuiz, { isLoading, isError, isSuccess }] = useAddQuizMutation();
+  const [addQuiz, { isSuccess }] = useAddQuizMutation();
   const [step, setStep] = useState(1);
   const [addQuestionStep, setAddQuestionStep] = useState(1);
   const [quizData, setQuizData] = useState<QuizData>({
