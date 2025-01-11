@@ -3,25 +3,39 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu } from "antd";
+import { Layout, Menu, MenuProps } from "antd";
 import { createElement } from "react";
 
 const { Header, Content, Footer, Sider } = Layout;
 
-const items = [
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
-  UserOutlined,
-].map((icon, index) => ({
-  key: String(index + 1),
-  icon: createElement(icon),
-  label: `nav ${index + 1}`,
-}));
+const items: MenuProps["items"] = [
+  {
+    key: "1",
+    label: "Dashboard",
+  },
+  {
+    key: "2",
+    label: "Users",
+    children: [
+      {
+        key: "2.1",
+        label: "Users",
+      },
+      {
+        key: "2.2",
+        label: "Roles",
+      },
+    ],
+  },
+  {
+    key: "3",
+    label: "Reports",
+  },
+];
 
 export default function MainLayout() {
   return (
-    <Layout>
+    <Layout style={{ height: "100vh" }}>
       <Sider
         breakpoint="lg"
         collapsedWidth="0"
@@ -31,7 +45,9 @@ export default function MainLayout() {
         onCollapse={(collapsed, type) => {
           console.log(collapsed, type);
         }}>
-        <div className="demo-logo-vertical" />
+        <div style={{ height: 32, margin: "16px", color: "white" }}>
+          <h1>PH University</h1>
+        </div>
         <Menu
           theme="dark"
           mode="inline"
