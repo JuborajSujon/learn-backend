@@ -5,26 +5,30 @@ import {
 } from "@ant-design/icons";
 import { Layout, Menu, MenuProps } from "antd";
 import { createElement } from "react";
-import { Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
 
 const items: MenuProps["items"] = [
   {
-    key: "1",
-    label: "Dashboard",
+    key: "Dashboard",
+    label: <NavLink to="/admin/dashboard">Dashboard</NavLink>,
   },
   {
-    key: "2",
-    label: "Users",
+    key: "User Management",
+    label: "User Management",
     children: [
       {
-        key: "2.1",
-        label: "Users",
+        key: "Create Admin",
+        label: <NavLink to="/admin/create-admin">Create Admin</NavLink>,
       },
       {
-        key: "2.2",
-        label: "Roles",
+        key: "Create Faculty",
+        label: <NavLink to="/admin/create-faculty">Create Faculty</NavLink>,
+      },
+      {
+        key: "Create Student",
+        label: <NavLink to="/admin/create-student">Create Student</NavLink>,
       },
     ],
   },
