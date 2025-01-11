@@ -3,10 +3,15 @@ import CreateAdmin from "../pages/admin/CreateAdmin";
 import CreateFaculty from "../pages/admin/CreateFaculty";
 import CreateStudent from "../pages/admin/CreateStudent";
 
-const adminPaths2 = [
+type TRoute = {
+  path: string;
+  element: React.ReactNode;
+};
+
+const adminPaths = [
   {
     name: "Dashboard",
-    path: "/admin/dashboard",
+    path: "dashboard",
     element: <AdminDashboard />,
   },
   {
@@ -14,44 +19,68 @@ const adminPaths2 = [
     children: [
       {
         name: "Create Admin",
-        path: "/admin/create-admin",
+        path: "create-admin",
         element: <CreateAdmin />,
       },
       {
         name: "Create Faculty",
-        path: "/admin/create-faculty",
+        path: "create-faculty",
         element: <CreateFaculty />,
       },
       {
         name: "Create Student",
-        path: "/admin/create-student",
+        path: "create-student",
         element: <CreateStudent />,
       },
     ],
   },
 ];
 
-const adminPaths = [
-  {
-    index: true,
-    element: <AdminDashboard />,
-  },
-  {
-    path: "dashboard",
-    element: <AdminDashboard />,
-  },
-  {
-    path: "create-student",
-    element: <CreateStudent />,
-  },
-  {
-    path: "create-faculty",
-    element: <CreateFaculty />,
-  },
-  {
-    path: "create-admin",
-    element: <CreateAdmin />,
-  },
-];
+// Programatical  way
+export const adminRoutes = adminPaths.reduce((acc: TRoute[], item) => {
+  if (item.path && item.element) {
+    acc.push({
+      path: item.path,
+      element: item.element,
+    });
+  }
 
-export default adminPaths;
+  if (item.children) {
+    item.children.forEach((child) => {
+      if (child.path && child.element) {
+        acc.push({
+          path: child.path,
+          element: child.element,
+        });
+      }
+    });
+  }
+
+  return acc;
+}, []);
+
+//Hard coded routes
+// const adminPaths = [
+//   {
+//     index: true,
+//     element: <AdminDashboard />,
+//   },
+//   {
+//     path: "dashboard",
+//     element: <AdminDashboard />,
+//   },
+//   {
+//     path: "create-student",
+//     element: <CreateStudent />,
+//   },
+//   {
+//     path: "create-faculty",
+//     element: <CreateFaculty />,
+//   },
+//   {
+//     path: "create-admin",
+//     element: <CreateAdmin />,
+//   },
+// ];
+
+// export default adminPaths;
