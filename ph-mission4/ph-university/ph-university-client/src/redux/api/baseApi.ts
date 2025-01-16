@@ -28,7 +28,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   BaseQueryApi,
   DefinitionType
 > = async (args, api, extraOptions): Promise<any> => {
-  const result = await baseQuery(args, api, extraOptions);
+  let result = await baseQuery(args, api, extraOptions);
 
   if (result?.error?.status === 401) {
     //* Send Refresh
@@ -39,20 +39,20 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 
     const data = await res.json();
 
-    // if (data?.data?.accessToken) {
-    //   const user = (api.getState() as RootState).auth.user;
+    if (data?.data?.accessToken) {
+      const user = (api.getState() as RootState).auth.user;
 
-    //   api.dispatch(
-    //     setUser({
-    //       user,
-    //       token: data.data.accessToken,
-    //     })
-    //   );
+      api.dispatch(
+        setUser({
+          user,
+          token: data.data.accessToken,
+        })
+      );
 
-    //   result = await baseQuery(args, api, extraOptions);
-    // } else {
-    //   api.dispatch(logout());
-    // }
+      result = await baseQuery(args, api, extraOptions);
+    } else {
+      api.dispatch(logout());
+    }
   }
 
   return result;
