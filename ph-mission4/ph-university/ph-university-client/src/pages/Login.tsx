@@ -6,6 +6,7 @@ import { setUser, TUser } from "../redux/features/auth/authSlice";
 import { verifyToken } from "../utils/verifiyToken";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import PHForm from "../components/form/PHForm";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -20,30 +21,31 @@ export default function Login() {
   const [login] = useLoginMutation();
 
   const onSubmit = async (data: FieldValues) => {
-    const toastId = toast.loading("Logging in...");
-    try {
-      const userInfo = {
-        id: data.userId,
-        password: data.password,
-      };
+    console.log(data);
+    // const toastId = toast.loading("Logging in...");
+    // try {
+    //   const userInfo = {
+    //     id: data.userId,
+    //     password: data.password,
+    //   };
 
-      const res = await login(userInfo).unwrap();
-      const user = verifyToken(res.data.accessToken) as TUser;
+    //   const res = await login(userInfo).unwrap();
+    //   const user = verifyToken(res.data.accessToken) as TUser;
 
-      dispatch(setUser({ user, token: res.data.accessToken }));
+    //   dispatch(setUser({ user, token: res.data.accessToken }));
 
-      toast.success("Login successful", { id: toastId, duration: 2000 });
+    //   toast.success("Login successful", { id: toastId, duration: 2000 });
 
-      navigate(`/${user.role}/dashboard`);
-    } catch (error: any) {
-      toast.error(`Login failed: ${error.message}`, {
-        id: toastId,
-        duration: 2000,
-      });
-    }
+    //   navigate(`/${user.role}/dashboard`);
+    // } catch (error: any) {
+    //   toast.error(`Login failed: ${error.message}`, {
+    //     id: toastId,
+    //     duration: 2000,
+    //   });
+    // }
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <PHForm onSubmit={onSubmit}>
       <div>
         <label htmlFor="id">ID: </label>
         <input type="text" id="id" {...register("userId")} />
@@ -54,6 +56,6 @@ export default function Login() {
 
         <Button htmlType="submit">Login</Button>
       </div>
-    </form>
+    </PHForm>
   );
 }
