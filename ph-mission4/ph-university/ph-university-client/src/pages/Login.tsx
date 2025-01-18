@@ -43,10 +43,17 @@ export default function Login() {
 
       navigate(`/${user.role}/dashboard`);
     } catch (error: any) {
-      toast.error(`Login failed: ${error.message}`, {
-        id: toastId,
-        duration: 2000,
-      });
+      if (error?.status === 404) {
+        toast.error(error.data.message, {
+          id: toastId,
+          duration: 2000,
+        });
+      } else {
+        toast.error(`Login failed: ${error.message}`, {
+          id: toastId,
+          duration: 2000,
+        });
+      }
     }
   };
   return (
