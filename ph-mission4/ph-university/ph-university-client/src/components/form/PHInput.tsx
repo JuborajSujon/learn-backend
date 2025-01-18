@@ -1,7 +1,13 @@
 import { Input } from "antd";
 import { Controller } from "react-hook-form";
 
-export default function PHInput({ type, name, label }) {
+type TInputProps = {
+  type: string;
+  name: string;
+  label?: string;
+};
+
+export default function PHInput({ type, name, label }: TInputProps) {
   return (
     <div style={{ marginBottom: "20px" }}>
       {label ? label : null}
