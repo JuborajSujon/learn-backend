@@ -7,10 +7,7 @@ import {
 } from "react-hook-form";
 
 type TFormConfig = {
-  defaultValues?: {
-    userId: string;
-    password: string;
-  };
+  defaultValues?: Record<string, any>;
 };
 
 type TFormProps = {
