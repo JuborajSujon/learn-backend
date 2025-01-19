@@ -14,7 +14,13 @@ export default function PHInput({ type, name, label }: TInputProps) {
         name={name}
         render={({ field }) => (
           <Form.Item label={label}>
-            <Input {...field} placeholder={`${label}`} type={type} id={name} />
+            <Input
+              {...field}
+              placeholder={`${label}`}
+              type={type}
+              id={name}
+              size="large"
+            />
           </Form.Item>
         )}
       />

@@ -17,7 +17,12 @@ export default function PHSelect({ label, name, options }: TPHSelectProps) {
       name={name}
       render={({ field }) => (
         <Form.Item label={label}>
-          <Select {...field} style={{ width: "100%" }} options={options} />
+          <Select
+            {...field}
+            style={{ width: "100%" }}
+            options={options}
+            size="large"
+          />
         </Form.Item>
       )}
     />
