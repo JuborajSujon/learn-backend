@@ -8,7 +8,10 @@ const academicManagementApi = baseApi.injectEndpoints({
       query: (args) => {
         const params = new URLSearchParams();
 
-        params.append(args[0].name, args[0].value);
+        if (args) {
+          args.forEach((arg) => params.append(arg.name, arg.value));
+        }
+
         return {
           url: "/academic-semesters",
           method: "GET",
