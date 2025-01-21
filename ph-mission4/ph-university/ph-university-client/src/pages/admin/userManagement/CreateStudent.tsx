@@ -6,7 +6,7 @@ import { Button } from "antd";
 export default function CreateStudent() {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const formData = new FormData();
-    formData.append("name", data.name);
+    formData.append("data", JSON.stringify(data));
     console.log(Object.fromEntries(formData));
     // console.log([...formData.entries()]);
   };
