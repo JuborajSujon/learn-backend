@@ -103,6 +103,7 @@ export default function CreateStudent() {
     };
     const formData = new FormData();
     formData.append("data", JSON.stringify(studentData));
+    formData.append("file", data.image);
 
     addStudent(formData);
     // console.log(Object.fromEntries(formData));
