@@ -3,18 +3,18 @@ import type { TableColumnsType, TableProps } from "antd";
 import { useState } from "react";
 import { TQueryParams, TStudent } from "../../../types";
 import { useGetAllStudentsQuery } from "../../../redux/features/admin/userManagement.api";
+import { Link } from "react-router-dom";
 
-export type TTableDate = Pick<TStudent, "fullName" | "id">;
+export type TTableDate = Pick<
+  TStudent,
+  "fullName" | "id" | "email" | "contactNo"
+>;
 
 export default function StudentData() {
   const [params, setParams] = useState<TQueryParams[]>([]);
-  const [page, setPage] = useState(5);
-  const {
-    data: studentData,
-    isLoading,
-    isFetching,
-  } = useGetAllStudentsQuery([
-    { name: "limit", value: 3 },
+  const [page, setPage] = useState(1);
+  const { data: studentData, isFetching } = useGetAllStudentsQuery([
+    { name: "limit", value: 10 },
     {
       name: "page",
       value: page,
@@ -25,15 +25,25 @@ export default function StudentData() {
 
   const metaData = studentData?.meta;
 
-  const tableData = studentData?.data?.map(({ _id, fullName, id }) => {
-    return {
-      key: _id,
-      fullName,
-      id,
-    };
-  });
+  const tableData = studentData?.data?.map(
+    ({ _id, fullName, id, email, contactNo }, index) => {
+      return {
+        index: index + 1,
+        key: _id,
+        fullName,
+        id,
+        email,
+        contactNo,
+      };
+    }
+  );
 
   const columns: TableColumnsType<TTableDate> = [
+    {
+      title: "#",
+      dataIndex: "index",
+      width: "1%",
+    },
     {
       title: "Name",
       dataIndex: "fullName",
@@ -43,12 +53,23 @@ export default function StudentData() {
       title: "Roll No",
       dataIndex: "id",
     },
+
+    {
+      title: "Email",
+      dataIndex: "email",
+    },
+    {
+      title: "Contact No",
+      dataIndex: "contactNo",
+    },
     {
       title: "Action",
-      render: () => {
+      render: (item) => {
         return (
           <Space>
-            <Button type="primary">Details</Button>
+            <Link to={`/admin/student-data/${item.key}`}>
+              <Button type="primary">Details</Button>
+            </Link>
             <Button type="primary">Update</Button>
             <Button type="primary">Block</Button>
           </Space>
