@@ -30,11 +30,11 @@ export default function CreateAcademicSemester() {
     };
 
     try {
-      const res = (await addAcademicSemester(semesterData)) as TResponse;
+      const res = (await addAcademicSemester(semesterData)) as TResponse<any>;
       if (res?.error) {
         toast.error(res.error?.data?.message, { id: toastId });
       } else {
-        toast.success(res?.data?.message, { id: toastId });
+        toast.success("Academic Semester Created", { id: toastId });
       }
     } catch (err: any) {
       toast.error(err.message, { id: toastId });
