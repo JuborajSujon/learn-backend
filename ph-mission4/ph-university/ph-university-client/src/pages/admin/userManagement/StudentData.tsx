@@ -7,12 +7,21 @@ import { useGetAllStudentsQuery } from "../../../redux/features/admin/userManage
 export type TTableDate = Pick<TStudent, "name" | "id">;
 
 export default function StudentData() {
-  const [params, setParams] = useState<TQueryParams[] | undefined>(undefined);
+  const [params, setParams] = useState<TQueryParams[]>([]);
+  const [page, setPage] = useState(5);
   const {
     data: studentData,
     isLoading,
     isFetching,
-  } = useGetAllStudentsQuery(params);
+  } = useGetAllStudentsQuery([
+    { name: "limit", value: 3 },
+    {
+      name: "page",
+      value: page,
+    },
+    { name: "sort", value: "id" },
+    ...params,
+  ]);
 
   console.log({ isLoading, isFetching });
 
