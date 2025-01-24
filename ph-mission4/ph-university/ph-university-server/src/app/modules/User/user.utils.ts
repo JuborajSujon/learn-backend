@@ -1,10 +1,10 @@
 import { TAcademicSemester } from '../AcademicSemester/academicSemester.interface';
 import { User } from './user.model';
 
-const findLastStudentId = async () => {
+const findLastStudentId = async (payload: string) => {
   const lastStudent = await User.findOne(
     {
-      role: 'student',
+      $and: [{ role: 'student' }, { id: { $regex: payload, $options: 'i' } }],
     },
     {
       id: 1,
@@ -20,8 +20,9 @@ const findLastStudentId = async () => {
 };
 
 export const generateStudentId = async (payload: TAcademicSemester) => {
+  const query = `${payload.year}${payload.code}`;
   let currentId = (0).toString();
-  const lastStudentId = await findLastStudentId();
+  const lastStudentId = await findLastStudentId(query);
 
   const lastStudentSemesterCode = lastStudentId?.substring(4, 6);
   const lastStudentYear = lastStudentId?.substring(0, 4);
