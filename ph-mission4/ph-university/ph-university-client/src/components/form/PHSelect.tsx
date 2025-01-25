@@ -12,6 +12,7 @@ type TPHSelectProps = {
       }[]
     | undefined;
   disabled?: boolean;
+  mode?: "multiple" | undefined;
 };
 
 export default function PHSelect({
@@ -19,6 +20,7 @@ export default function PHSelect({
   name,
   options,
   disabled,
+  mode,
 }: TPHSelectProps) {
   return (
     <Controller
@@ -27,6 +29,7 @@ export default function PHSelect({
         <Form.Item label={label}>
           <Select
             {...field}
+            mode={mode}
             style={{ width: "100%" }}
             options={options}
             size="large"
