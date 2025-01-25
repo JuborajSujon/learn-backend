@@ -85,4 +85,7 @@ export const {
   useGetAllSemestersQuery,
   useAddAcademicSemesterMutation,
   useGetAcademicDepartmentsQuery,
+  useGetAcademicFacultiesQuery,
+  useAddAcademicFacultyMutation,
+  useAddAcademicDepartmentMutation,
 } = academicManagementApi;
