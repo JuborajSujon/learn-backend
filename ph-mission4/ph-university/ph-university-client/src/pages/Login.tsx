@@ -41,7 +41,11 @@ export default function Login() {
 
       toast.success("Login successful", { id: toastId, duration: 2000 });
 
-      navigate(`/${user.role}/dashboard`);
+      if (res.data.needsPasswordChange) {
+        navigate("/change-password");
+      } else {
+        navigate(`/${user.role}/dashboard`);
+      }
     } catch (error: any) {
       if (error?.status === 404) {
         toast.error(error.data.message, {

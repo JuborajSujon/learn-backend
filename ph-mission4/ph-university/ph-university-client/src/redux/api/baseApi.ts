@@ -9,7 +9,6 @@ import {
 import { RootState } from "../store";
 import { logout, setUser } from "../features/auth/authSlice";
 import { toast } from "sonner";
-import { User } from "./../../../../ph-university-server/src/app/modules/User/user.model";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:5000/api/v1",
@@ -30,9 +29,12 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   BaseQueryApi,
   DefinitionType
 > = async (args, api, extraOptions): Promise<any> => {
-  let result = await baseQuery(args, api, extraOptions);
+  let result = (await baseQuery(args, api, extraOptions)) as any;
 
   if (result?.error?.status === 404) {
+    toast.error(result?.error?.data?.message);
+  }
+  if (result?.error?.status === 403) {
     toast.error(result?.error?.data?.message);
   }
 
@@ -67,6 +69,6 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: baseQueryWithRefreshToken,
-  tagTypes: ["semester", "courses"],
+  tagTypes: ["semester", "courses", "offeredCourse"],
   endpoints: () => ({}),
 });
