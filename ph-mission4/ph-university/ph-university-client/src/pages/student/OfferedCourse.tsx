@@ -42,7 +42,7 @@ export default function OfferedCourse() {
               <h2>{item.courseTitle}</h2>
             </div>
             <div>
-              {item.sections.map((section: any, index) => {
+              {item.sections.map((section: any, index: number) => {
                 return (
                   <Row
                     justify="space-between"
