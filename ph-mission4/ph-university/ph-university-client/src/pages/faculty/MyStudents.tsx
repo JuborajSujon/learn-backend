@@ -77,7 +77,7 @@ const AddMarksModal = ({ studentInfo }: any) => {
   };
   return (
     <>
-      <Button onClick={showModal}>Add Faculty</Button>
+      <Button onClick={showModal}>Add Marks</Button>
       <Modal
         title="Basic Modal"
         open={isModalOpen}
