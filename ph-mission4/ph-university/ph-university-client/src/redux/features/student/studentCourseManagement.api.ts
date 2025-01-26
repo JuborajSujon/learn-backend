@@ -4,7 +4,6 @@ const studentCourseApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllOfferedCourses: builder.query({
       query: (args) => {
-        console.log(args);
         const params = new URLSearchParams();
         if (args) {
           args.forEach((item: TQueryParams) => {
@@ -27,7 +26,6 @@ const studentCourseApi = baseApi.injectEndpoints({
     }),
     getAllEnrolledCourses: builder.query({
       query: (args) => {
-        console.log(args);
         const params = new URLSearchParams();
         if (args) {
           args.forEach((item: TQueryParams) => {

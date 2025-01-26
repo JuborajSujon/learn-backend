@@ -21,7 +21,7 @@ export default function Login() {
 
   const defaultValues = {
     userId: "2024010001",
-    password: "student123",
+    password: "123456",
   };
 
   const [login] = useLoginMutation();
