@@ -1,0 +1,164 @@
+{
+  "recipes": [
+    {
+      "id": "1",
+      "title": "Veggie Carbonara",
+      "image": "Veggie_Carbonara.jpg",
+      "time": 20,
+      "description": "A vegetarian twist on the classic Italian pasta dish with eggs, cheese, and vegetarian bacon.",
+      "vegan": false
+    },
+    {
+      "id": "2",
+      "title": "Spicy Chickpea Curry",
+      "image": "Spicy_Chickpea_Curry.jpg",
+      "time": 30,
+      "description": "A delicious and easy-to-make chickpea curry with a spicy kick.",
+      "vegan": true
+    },
+    {
+      "id": "3",
+      "title": "Avocado Toast with Tomatoes",
+      "image": "Avocado_Toast.jpg",
+      "time": 10,
+      "description": "A simple and healthy breakfast option with fresh avocado and cherry tomatoes.",
+      "vegan": true
+    },
+    {
+      "id": "4",
+      "title": "Mushroom Risotto",
+      "image": "Mushroom_Risotto.jpg",
+      "time": 40,
+      "description": "A creamy and flavorful risotto made with fresh mushrooms and parmesan cheese.",
+      "vegan": false
+    },
+    {
+      "id": "5",
+      "title": "Quinoa Salad",
+      "image": "Quinoa_Salad.jpg",
+      "time": 15,
+      "description": "A light and nutritious quinoa salad with fresh vegetables and a lemon dressing.",
+      "vegan": true
+    },
+    {
+      "id": "6",
+      "title": "Lentil Soup",
+      "image": "Lentil_Soup.jpg",
+      "time": 35,
+      "description": "A warm and comforting lentil soup with carrots and spices.",
+      "vegan": true
+    },
+    {
+      "id": "7",
+      "title": "Stuffed Bell Peppers",
+      "image": "Stuffed_Bell_Peppers.jpg",
+      "time": 45,
+      "description": "Bell peppers stuffed with rice, beans, and vegetables, baked to perfection.",
+      "vegan": true
+    },
+    {
+      "id": "8",
+      "title": "Pesto Pasta",
+      "image": "Pesto_Pasta.jpg",
+      "time": 25,
+      "description": "Pasta tossed in a homemade basil pesto sauce.",
+      "vegan": false
+    },
+    {
+      "id": "9",
+      "title": "Vegan Pancakes",
+      "image": "Vegan_Pancakes.jpg",
+      "time": 20,
+      "description": "Fluffy pancakes made without eggs or dairy, served with maple syrup.",
+      "vegan": true
+    },
+    {
+      "id": "10",
+      "title": "Tofu Stir Fry",
+      "image": "Tofu_Stir_Fry.jpg",
+      "time": 25,
+      "description": "Crispy tofu stir-fried with colorful vegetables and soy sauce.",
+      "vegan": true
+    },
+    {
+      "id": "11",
+      "title": "Greek Salad",
+      "image": "Greek_Salad.jpg",
+      "time": 10,
+      "description": "A fresh salad with cucumbers, tomatoes, olives, and feta cheese.",
+      "vegan": false
+    },
+    {
+      "id": "12",
+      "title": "Vegan Burger",
+      "image": "Vegan_Burger.jpg",
+      "time": 30,
+      "description": "A plant-based burger patty served with lettuce, tomato, and vegan mayo.",
+      "vegan": true
+    },
+    {
+      "id": "13",
+      "title": "Sweet Potato Fries",
+      "image": "Sweet_Potato_Fries.jpg",
+      "time": 30,
+      "description": "Baked sweet potato fries with a crispy exterior and soft interior.",
+      "vegan": true
+    },
+    {
+      "id": "14",
+      "title": "Cauliflower Wings",
+      "image": "Cauliflower_Wings.jpg",
+      "time": 35,
+      "description": "Crispy cauliflower florets tossed in buffalo sauce.",
+      "vegan": true
+    },
+    {
+      "id": "15",
+      "title": "Pumpkin Soup",
+      "image": "Pumpkin_Soup.jpg",
+      "time": 40,
+      "description": "A creamy and rich pumpkin soup with warm spices.",
+      "vegan": true
+    },
+    {
+      "id": "16",
+      "title": "Fruit Smoothie Bowl",
+      "image": "Fruit_Smoothie_Bowl.jpg",
+      "time": 10,
+      "description": "A refreshing smoothie bowl topped with fresh fruits and granola.",
+      "vegan": true
+    },
+    {
+      "id": "17",
+      "title": "Zucchini Noodles",
+      "image": "Zucchini_Noodles.jpg",
+      "time": 20,
+      "description": "Spiralized zucchini noodles with a light garlic and olive oil sauce.",
+      "vegan": true
+    },
+    {
+      "id": "18",
+      "title": "Chia Pudding",
+      "image": "Chia_Pudding.jpg",
+      "time": 5,
+      "description": "A healthy and nutritious chia seed pudding with almond milk.",
+      "vegan": true
+    },
+    {
+      "id": "19",
+      "title": "Baked Oatmeal",
+      "image": "Baked_Oatmeal.jpg",
+      "time": 35,
+      "description": "A wholesome baked oatmeal dish with cinnamon and fruit.",
+      "vegan": true
+    },
+    {
+      "id": "20",
+      "title": "Chocolate Avocado Mousse",
+      "image": "Chocolate_Avocado_Mousse.jpg",
+      "time": 15,
+      "description": "A rich and creamy chocolate mousse made with avocado.",
+      "vegan": true
+    }
+  ]
+}
