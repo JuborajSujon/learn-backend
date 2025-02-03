@@ -3,7 +3,7 @@
     {
       "id": "1",
       "title": "Veggie Carbonara",
-      "image": "Veggie_Carbonara.jpg",
+      "image": "Veggie_Carbonara.jpeg",
       "time": 20,
       "description": "A vegetarian twist on the classic Italian pasta dish with eggs, cheese, and vegetarian bacon.",
       "vegan": false
@@ -11,7 +11,7 @@
     {
       "id": "2",
       "title": "Spicy Chickpea Curry",
-      "image": "Spicy_Chickpea_Curry.jpg",
+      "image": "Spicy_Chickpea_Curry.webp",
       "time": 30,
       "description": "A delicious and easy-to-make chickpea curry with a spicy kick.",
       "vegan": true
@@ -131,7 +131,7 @@
     {
       "id": "17",
       "title": "Zucchini Noodles",
-      "image": "Zucchini_Noodles.jpg",
+      "image": "Zucchini_Noodles.webp",
       "time": 20,
       "description": "Spiralized zucchini noodles with a light garlic and olive oil sauce.",
       "vegan": true
@@ -147,7 +147,7 @@
     {
       "id": "19",
       "title": "Baked Oatmeal",
-      "image": "Baked_Oatmeal.jpg",
+      "image": "Baked_Oatmeal.jpeg",
       "time": 35,
       "description": "A wholesome baked oatmeal dish with cinnamon and fruit.",
       "vegan": true
@@ -155,7 +155,7 @@
     {
       "id": "20",
       "title": "Chocolate Avocado Mousse",
-      "image": "Chocolate_Avocado_Mousse.jpg",
+      "image": "Chocolate_Avocado_Mousse.webp",
       "time": 15,
       "description": "A rich and creamy chocolate mousse made with avocado.",
       "vegan": true
