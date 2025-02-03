@@ -70,3 +70,20 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+main,
+nav {
+  @apply max-w-6xl mx-auto my-12;
+}
+
+p {
+  @apply mt-2;
+}
+
+h1 {
+  @apply scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl;
+}
+
+h2 {
+  @apply scroll-m-20 border-b pb-2 text-3xl font-semibold transition-colors tracking-tight first:mt-0;
+}
