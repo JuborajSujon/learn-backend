@@ -370,8 +370,8 @@ export default function General() {
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>This week</CardTitle>
-        <CardDescription>These are the results of this week.</CardDescription>
+        <CardTitle>Calendar</CardTitle>
+        <CardDescription>These are the numbers of this year.</CardDescription>
       </CardHeader>
       <CardContent className="grid gap-4 h-[400px]">
         <MyResponsiveBump data={data} />
