@@ -40,8 +40,8 @@ export default function Sidebar() {
         },
         {
           link: "/",
-          icon: <LogIn />,
-          text: "Log",
+          icon: <Bell />,
+          text: "Notifications",
         },
       ],
     },
@@ -60,14 +60,14 @@ export default function Sidebar() {
         },
         {
           link: "/",
-          icon: <Bell />,
-          text: "Notifications",
+          icon: <LogIn />,
+          text: "Log",
         },
       ],
     },
   ];
   return (
-    <div className="flex flex-col gap-4 w-[300px] min-w-[300px] border-r min-h-screen p-4">
+    <div className="fixed flex flex-col gap-4 w-[300px] min-w-[300px] border-r min-h-screen p-4">
       <div>
         <UserItem />
       </div>
@@ -76,10 +76,10 @@ export default function Sidebar() {
           <CommandList>
             {menuList?.map((menu: any, key: number) => (
               <CommandGroup key={key} heading={menu.group}>
-                {menu?.items?.map((option: any, key: number) => (
+                {menu?.items?.map((option: any, keyOption: number) => (
                   <CommandItem
-                    className="cursor-pointer"
-                    key={key}
+                    className="cursor-pointer flex gap-2"
+                    key={keyOption}
                     onClick={option.onClick}>
                     {option?.icon}
                     {option.text}
