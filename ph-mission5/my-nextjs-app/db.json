@@ -39,6 +39,46 @@
       "brand": "North Face",
       "price": 90,
       "image": "https://5.imimg.com/data5/SELLER/Default/2024/8/440879408/AF/MD/SW/33578405/dell-trek-laptop-backpack-1000x1000.jpeg"
+    },
+    {
+      "id": 6,
+      "productName": "Gaming Headset",
+      "category": "Electronics",
+      "brand": "SteelSeries",
+      "price": 129.99,
+      "image": "https://vibegaming.com.bd/wp-content/uploads/2024/02/g733-white-01-500x500-1.webp"
+    },
+    {
+      "id": 7,
+      "productName": "Smartwatch",
+      "category": "Wearable Tech",
+      "brand": "Apple",
+      "price": 399.99,
+      "image": "https://vibegaming.com.bd/wp-content/uploads/2025/01/havit-m9030-pro-smart-watch.jpg"
+    },
+    {
+      "id": 8,
+      "productName": "Desk Lamp",
+      "category": "Home & Office",
+      "brand": "Philips",
+      "price": 39.99,
+      "image": "https://static-01.daraz.com.bd/p/711ebb088a462347f29f91dd0a861c20.jpg"
+    },
+    {
+      "id": 9,
+      "productName": "Portable Speaker",
+      "category": "Audio",
+      "brand": "JBL",
+      "price": 59.99,
+      "image": "https://vibegaming.com.bd/wp-content/uploads/2025/03/Vibe-Gaming-28-600x600.png"
+    },
+    {
+      "id": 10,
+      "productName": "Leather Wallet",
+      "category": "Accessories",
+      "brand": "Fossil",
+      "price": 49.99,
+      "image": "https://www.lostdutchmanleather.com/cdn/shop/files/the-dutchman-handmade-leather-wallet-128087.jpg?v=1714441353&width=2048"
     }
   ]
 }

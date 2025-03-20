@@ -6,7 +6,7 @@ const DynamicProductPage = async ({ params, searchParams }) => {
   console.log(await searchParams);
 
   return (
-    <div>
+    <div className="container mx-auto px-4 py-5">
       <h1 className="text-3xl font-bold underline">
         Dynamic Product Page {productId}
       </h1>
