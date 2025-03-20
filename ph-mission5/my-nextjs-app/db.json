@@ -5,7 +5,7 @@
       "productName": "Wireless Mouse",
       "category": "Electronics",
       "brand": "Logitech",
-      "price": 29.99,
+      "price": 30,
       "image": "https://4.imimg.com/data4/PA/GE/MY-3486883/wireless-mouse-1000x1000.jpg"
     },
     {
@@ -13,7 +13,7 @@
       "productName": "Mechanical Keyboard",
       "category": "Electronics",
       "brand": "Razer",
-      "price": 89.99,
+      "price": 100,
       "image": "https://5.imimg.com/data5/SELLER/Default/2024/5/415905853/MJ/OS/JR/33994888/led-backlit-keyboard-for-gaming-keyboard-mechanic-wire-gaming-keyboard-design-1000x1000.jpg"
     },
     {
@@ -21,7 +21,7 @@
       "productName": "Running Shoes",
       "category": "Footwear",
       "brand": "Nike",
-      "price": 119.99,
+      "price": 120,
       "image": "https://5.imimg.com/data5/ANDROID/Default/2023/6/314041759/TX/CU/BA/37440292/product-jpeg.jpg"
     },
     {
@@ -29,7 +29,7 @@
       "productName": "Smartphone",
       "category": "Mobile",
       "brand": "Samsung",
-      "price": 699.99,
+      "price": 700,
       "image": "https://5.imimg.com/data5/SELLER/Default/2022/10/OB/WR/TN/8266774/swetaa-1000x1000.jpg"
     },
     {
@@ -37,7 +37,7 @@
       "productName": "Backpack",
       "category": "Accessories",
       "brand": "North Face",
-      "price": 79.99,
+      "price": 90,
       "image": "https://5.imimg.com/data5/SELLER/Default/2024/8/440879408/AF/MD/SW/33578405/dell-trek-laptop-backpack-1000x1000.jpeg"
     }
   ]
