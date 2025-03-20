@@ -6,9 +6,9 @@ const CommonLayout = ({ children }) => {
   return (
     <div>
       <Navbar />
-      <div className="h-[calc(100vh-300px)] container px-6 mx-auto mt-3">
-        {children}
-      </div>
+
+      {children}
+
       <Footer />
     </div>
   );
