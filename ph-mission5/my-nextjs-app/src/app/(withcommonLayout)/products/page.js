@@ -1,9 +1,9 @@
 import ProductCard from "@/components/ProductCard";
-import { fetchProductCache } from "@/utils/fetchProduct";
+import { fetchCache } from "@/utils/fetchProduct";
 import React from "react";
 
 const ProductsPage = async () => {
-  const products = await fetchProductCache(
+  const products = await fetchCache(
     "http://localhost:5000/products/",
     "no-cache"
   );

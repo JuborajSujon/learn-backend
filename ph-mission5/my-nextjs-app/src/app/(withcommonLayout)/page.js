@@ -1,12 +1,9 @@
 import ProductCard from "@/components/ProductCard";
-import { fetchProductRevalidate } from "@/utils/fetchProduct";
+import { fetchRevalidate } from "@/utils/fetchProduct";
 import Link from "next/link";
 
 const HomePage = async () => {
-  const products = await fetchProductRevalidate(
-    "http://localhost:5000/products/",
-    30
-  );
+  const products = await fetchRevalidate("http://localhost:5000/products/", 30);
 
   return (
     <div className="container mx-auto px-4 py-5">

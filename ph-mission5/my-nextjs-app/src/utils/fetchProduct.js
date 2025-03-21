@@ -1,4 +1,4 @@
-export const fetchProductCache = async (url, cacheOption) => {
+export const fetchCache = async (url, cacheOption) => {
   // try {
   const res = await fetch(url, {
     cache: cacheOption,
@@ -13,7 +13,7 @@ export const fetchProductCache = async (url, cacheOption) => {
   // }
 };
 
-export const fetchProductRevalidate = async (url, revalidateTime) => {
+export const fetchRevalidate = async (url, revalidateTime) => {
   // try {
   const res = await fetch(url, {
     next: {
