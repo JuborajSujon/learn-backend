@@ -1,10 +1,11 @@
+import { createBlog } from "@/action/createBlog";
 import Form from "next/form";
 
 const BlogForm = () => {
   return (
     <div className="flex items-center justify-center">
       <div className="w-full max-w-4xl bg-white shadow-lg rounded-lg p-6">
-        <Form action="/blogs">
+        <Form action={createBlog}>
           <h2 className="text-2xl font-semibold mb-6 text-teal-600 text-center">
             Create Blog
           </h2>
