@@ -25,7 +25,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={roboto.className}
-        data-new-gr-c-s-check-loaded="14.1226.0"
+        data-new-gr-c-s-check-loaded="14.1228.0"
         data-gr-ext-installed=""
         cz-shortcut-listen="true">
         <Header />
