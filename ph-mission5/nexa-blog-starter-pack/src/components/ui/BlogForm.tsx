@@ -1,8 +1,10 @@
+import Form from "next/form";
+
 const BlogForm = () => {
   return (
-    <div className="flex items-center justify-center min-h-screen my-10">
+    <div className="flex items-center justify-center">
       <div className="w-full max-w-4xl bg-white shadow-lg rounded-lg p-6">
-        <form>
+        <Form action="/blogs">
           <h2 className="text-2xl font-semibold mb-6 text-teal-600 text-center">
             Create Blog
           </h2>
@@ -11,8 +13,7 @@ const BlogForm = () => {
             <div>
               <label
                 htmlFor="title"
-                className="block text-sm font-medium text-gray-700"
-              >
+                className="block text-sm font-medium text-gray-700">
                 Title
               </label>
               <input
@@ -27,8 +28,7 @@ const BlogForm = () => {
             <div>
               <label
                 htmlFor="author_name"
-                className="block text-sm font-medium text-gray-700"
-              >
+                className="block text-sm font-medium text-gray-700">
                 Author Name
               </label>
               <input
@@ -43,8 +43,7 @@ const BlogForm = () => {
             <div>
               <label
                 htmlFor="publish_date"
-                className="block text-sm font-medium text-gray-700"
-              >
+                className="block text-sm font-medium text-gray-700">
                 Publish Date
               </label>
               <input
@@ -58,8 +57,7 @@ const BlogForm = () => {
             <div>
               <label
                 htmlFor="total_likes"
-                className="block text-sm font-medium text-gray-700"
-              >
+                className="block text-sm font-medium text-gray-700">
                 Total Likes
               </label>
               <input
@@ -75,8 +73,7 @@ const BlogForm = () => {
           <div className="my-5">
             <label
               htmlFor="blog_image"
-              className="block text-sm font-medium text-gray-700"
-            >
+              className="block text-sm font-medium text-gray-700">
               Blog Image URL
             </label>
             <input
@@ -91,8 +88,7 @@ const BlogForm = () => {
           <div>
             <label
               htmlFor="description"
-              className="block text-sm font-medium text-gray-700"
-            >
+              className="block text-sm font-medium text-gray-700">
               Description
             </label>
             <textarea
@@ -100,16 +96,14 @@ const BlogForm = () => {
               name="description"
               rows={4}
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500"
-              placeholder="Enter blog description"
-            ></textarea>
+              placeholder="Enter blog description"></textarea>
           </div>
           <button
             type="submit"
-            className="mt-6 w-full bg-teal-600 text-white py-2 px-4 rounded-md hover:bg-teal-500 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          >
+            className="mt-6 w-full bg-teal-600 text-white py-2 px-4 rounded-md hover:bg-teal-500 focus:outline-none focus:ring-2 focus:ring-blue-400">
             Create
           </button>
-        </form>
+        </Form>
       </div>
     </div>
   );
