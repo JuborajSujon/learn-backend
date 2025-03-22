@@ -1,5 +1,7 @@
 "use client";
 import BlogCard from "@/components/ui/BlogCard";
+import Spinner from "@/components/ui/Spinner";
+import { useGetBlogsQuery } from "@/redux/api/blogs.slice";
 import { Blog } from "@/types";
 // import { Metadata } from "next";
 
@@ -14,6 +16,12 @@ const BlogsPage = () => {
 
   // const blogs = await res.json();
 
+  const { data: blogs, isLoading } = useGetBlogsQuery({});
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
   return (
     <div className="w-[90%] mx-auto">
       <h1 className="text-3xl text-center my-5 font-bold">
@@ -27,7 +35,7 @@ const BlogsPage = () => {
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 my-5">
-        {blogs.map((blog: Blog) => (
+        {blogs?.map((blog: Blog) => (
           <BlogCard key={blog.id} blog={blog} />
         ))}
       </div>
