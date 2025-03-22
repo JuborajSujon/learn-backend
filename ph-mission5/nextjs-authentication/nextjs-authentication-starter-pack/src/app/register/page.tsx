@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
+import { registerUser } from "@/utils/actions/register";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 export type UserData = {
@@ -12,16 +14,17 @@ export type UserData = {
 };
 
 const RegisterPage = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<UserData>();
+  const { register, handleSubmit } = useForm<UserData>();
+
+  const router = useRouter();
 
   const onSubmit = async (data: UserData) => {
-    console.log(data);
-
     try {
+      const res = await registerUser(data);
+      if (res.success) {
+        alert(res.message);
+        router.push("/login");
+      }
     } catch (err: any) {
       console.error(err.message);
       throw new Error(err.message);
@@ -88,8 +91,7 @@ const RegisterPage = () => {
             <div className="mb-4">
               <button
                 type="submit"
-                className="w-full border border-teal-500 text-teal-500 font-semibold py-2 px-4 rounded-md shadow-md hover:bg-teal-500 hover:text-black"
-              >
+                className="w-full border border-teal-500 text-teal-500 font-semibold py-2 px-4 rounded-md shadow-md hover:bg-teal-500 hover:text-black">
                 Register
               </button>
             </div>
