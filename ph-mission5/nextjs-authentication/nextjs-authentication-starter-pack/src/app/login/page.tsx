@@ -1,4 +1,5 @@
 "use client";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
@@ -9,11 +10,7 @@ type FormValues = {
 };
 
 const LoginPage = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormValues>();
+  const { register, handleSubmit } = useForm<FormValues>();
 
   const onSubmit = async (data: FormValues) => {
     console.log(data);
@@ -99,7 +96,13 @@ const LoginPage = () => {
                 alt="Google logo"
               />
             </button>
-            <button className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-full shadow-md hover:bg-gray-200">
+            <button
+              onClick={() =>
+                signIn("github", {
+                  callbackUrl: "http://localhost:3000/dashboard",
+                })
+              }
+              className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-full shadow-md hover:bg-gray-200">
               <Image
                 src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
                 width={25}

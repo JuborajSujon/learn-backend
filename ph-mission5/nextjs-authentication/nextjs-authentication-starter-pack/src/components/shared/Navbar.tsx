@@ -1,6 +1,14 @@
 import Link from "next/link";
 
-const Navbar = () => {
+type UserProps = {
+  user?: {
+    name?: string | null | undefined;
+    email?: string | null | undefined;
+    image?: string | null | undefined;
+  };
+};
+
+const Navbar = ({ session }: { session: UserProps | null }) => {
   return (
     <div className="w-[90%] mx-auto flex items-center justify-between bg-white border-b py-4">
       <div className="flex items-center">
@@ -8,15 +16,13 @@ const Navbar = () => {
           <div
             tabIndex={0}
             role="button"
-            className="p-2 rounded-md hover:bg-gray-100 focus:outline-none"
-          >
+            className="p-2 rounded-md hover:bg-gray-100 focus:outline-none">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
               fill="none"
               viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+              stroke="currentColor">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -27,8 +33,7 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex={0}
-            className="absolute mt-3 z-10 p-2 shadow-md bg-white rounded-md w-52"
-          >
+            className="absolute mt-3 z-10 p-2 shadow-md bg-white rounded-md w-52">
             <li className="py-2 px-4 hover:bg-gray-100">
               <Link href="/">Home</Link>
             </li>
@@ -42,8 +47,7 @@ const Navbar = () => {
         </div>
         <Link
           href="/"
-          className="ml-4 text-xl font-semibold text-gray-800 hover:text-gray-600"
-        >
+          className="ml-4 text-xl font-semibold text-gray-800 hover:text-gray-600">
           NextAuth
         </Link>
       </div>
@@ -71,8 +75,7 @@ const Navbar = () => {
         </button>
         <Link
           href="/login"
-          className="border border-teal-500 text-teal-500 px-5 py-2 rounded-full hover:bg-teal-500 hover:text-black transition duration-200"
-        >
+          className="border border-teal-500 text-teal-500 px-5 py-2 rounded-full hover:bg-teal-500 hover:text-black transition duration-200">
           Login
         </Link>
       </div>
