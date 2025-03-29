@@ -16,6 +16,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { loginSchema } from "./loginValidation";
 import { loginUser } from "@/services/AuthService";
 import { toast } from "sonner";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const LoginForm = () => {
   const form = useForm({
@@ -25,6 +26,10 @@ const LoginForm = () => {
   const {
     formState: { isSubmitting },
   } = form;
+
+  const handleReCaptcha = (value: string | null) => {
+    console.log(value);
+  };
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
@@ -76,6 +81,11 @@ const LoginForm = () => {
                 <FormMessage />
               </FormItem>
             )}
+          />
+
+          <ReCAPTCHA
+            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_CLIENT_KEY || ""}
+            onChange={handleReCaptcha}
           />
 
           <Button type="submit" className="mt-5 w-full">
