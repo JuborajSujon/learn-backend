@@ -13,9 +13,9 @@ import { Input } from "@/components/ui/input";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { Textarea } from "@/components/ui/textarea";
 import Logo from "@/app/assets/svgs/Logo";
-import NMImageUploader from "@/components/ui/core/NMImageUploader";
+import NMImageUploader from "@/components/ui/core/NMImaegUploader";
 import { useState } from "react";
-import ImagePreviewer from "@/components/ui/core/NMImageUploader/ImagePreviewer";
+import ImagePreviewer from "@/components/ui/core/NMImaegUploader/ImagePreviewer";
 import { createShop } from "@/services/Shop";
 import { toast } from "sonner";
 
