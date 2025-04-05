@@ -109,7 +109,7 @@ const LoginForm = () => {
       </Form>
       <p className="text-sm text-gray-600 text-center my-3">
         Don&apos;t have an account ?
-        <Link href="/login" className="text-primary ml-2">
+        <Link href="/register" className="text-primary ml-2">
           Register
         </Link>
       </p>
