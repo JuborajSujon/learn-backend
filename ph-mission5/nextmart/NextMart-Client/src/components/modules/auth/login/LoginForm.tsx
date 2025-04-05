@@ -18,6 +18,7 @@ import { loginUser, reCaptchaTokenVerification } from "@/services/AuthService";
 import { toast } from "sonner";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 
 const LoginForm = () => {
   const form = useForm({
@@ -25,6 +26,10 @@ const LoginForm = () => {
   });
 
   const [reCaptchaStatus, setReCaptchaStatus] = useState(false);
+
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirectPath");
+  const router = useRouter();
 
   const {
     formState: { isSubmitting },
@@ -47,6 +52,11 @@ const LoginForm = () => {
       const res = await loginUser(data);
       if (res?.success) {
         toast.success(res?.message);
+        if (redirect) {
+          router.push(redirect);
+        } else {
+          router.push("/profile");
+        }
       } else {
         toast.error(res?.message);
       }
