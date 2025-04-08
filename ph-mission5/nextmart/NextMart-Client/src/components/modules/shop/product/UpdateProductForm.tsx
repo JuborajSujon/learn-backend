@@ -21,7 +21,7 @@ import { useEffect, useState } from "react";
 import NMImageUploader from "@/components/ui/core/NMImaegUploader";
 import ImagePreviewer from "@/components/ui/core/NMImaegUploader/ImagePreviewer";
 import { Plus } from "lucide-react";
-import Logo from "@/app/assets/svgs/Logo";
+import Logo from "@/assets/svgs/Logo";
 
 import {
   Select,

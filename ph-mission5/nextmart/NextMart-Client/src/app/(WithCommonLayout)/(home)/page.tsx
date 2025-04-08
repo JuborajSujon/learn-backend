@@ -1,7 +1,9 @@
+import HeroSection from "@/components/modules/home/HeroSection";
+
 const HomePage = () => {
   return (
     <div>
-      <h1>NextMart Home Page</h1>
+      <HeroSection />
     </div>
   );
 };
