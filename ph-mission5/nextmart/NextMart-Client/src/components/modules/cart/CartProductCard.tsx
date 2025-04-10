@@ -1,9 +1,13 @@
 import { Button } from "@/components/ui/button";
-import { IProduct } from "@/types";
+import { ICartProduct } from "@/redux/features/cartSlice";
 import { Minus, Plus, Trash } from "lucide-react";
 import Image from "next/image";
 
-export default function CartProductCard({ product }: { product: IProduct }) {
+export default function CartProductCard({
+  product,
+}: {
+  product: ICartProduct;
+}) {
   return (
     <div className="bg-white rounded-lg flex p-5 gap-5">
       <div className="h-full w-32 rounded-md overflow-hidden">
@@ -39,7 +43,7 @@ export default function CartProductCard({ product }: { product: IProduct }) {
               <Minus />
             </Button>
             <p className="font-semibold text-xl p-2">
-              {/* {product?.orderQuantity} */}1
+              {product?.orderQuantity}
             </p>
             <Button variant="outline" className="size-8 rounded-sm">
               <Plus />
