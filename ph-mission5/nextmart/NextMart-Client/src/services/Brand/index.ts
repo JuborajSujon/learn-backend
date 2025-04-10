@@ -28,6 +28,7 @@ export const createBrand = async (brandData: FormData): Promise<any> => {
       },
     });
     revalidateTag("Brands");
+
     return res.json();
   } catch (error: any) {
     return Error(error);

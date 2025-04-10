@@ -1,11 +1,17 @@
 import ManageProducts from "@/components/modules/shop/product";
 import { getAllProducts } from "@/services/Product";
 
-const ManageProductsPage = async () => {
-  const { data, meta } = await getAllProducts();
+const ManageProductsPage = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ page: string }>;
+}) => {
+  const { page } = await searchParams;
+
+  const { data, meta } = await getAllProducts(page, "10");
   return (
     <div>
-      <ManageProducts products={data} />
+      <ManageProducts products={data} meta={meta} />
     </div>
   );
 };

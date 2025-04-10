@@ -16,15 +16,16 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import ImagePreviewer from "@/components/ui/core/NMImaegUploader/ImagePreviewer";
-import NMImageUploader from "@/components/ui/core/NMImaegUploader";
-import { useState } from "react";
+import { addFlashSale } from "@/services/FlashSale";
 import { toast } from "sonner";
-import { createBrand } from "@/services/Brand";
+import { Dispatch, SetStateAction } from "react";
 
-const CreateBrandModal = () => {
-  const [imageFiles, setImageFiles] = useState<File[] | []>([]);
-  const [imagePreview, setImagePreview] = useState<string[] | []>([]);
+type TModalProps = {
+  selectedIds: string[];
+  setSelectedIds: Dispatch<SetStateAction<string[] | []>>;
+};
+
+const DiscountModal = ({ selectedIds, setSelectedIds }: TModalProps) => {
   const form = useForm();
 
   const {
@@ -32,15 +33,16 @@ const CreateBrandModal = () => {
   } = form || {};
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const modifiedData = {
+      products: [...selectedIds],
+      discountPercentage: parseFloat(data?.discountPercentage),
+    };
+
     try {
-      const formData = new FormData();
-      formData.append("data", JSON.stringify(data));
-      formData.append("logo", imageFiles[0] as File);
-
-      const res = await createBrand(formData);
-
+      const res = await addFlashSale(modifiedData);
       if (res.success) {
         toast.success(res.message);
+        setSelectedIds([]);
       } else {
         toast.error(res.message);
       }
@@ -52,28 +54,14 @@ const CreateBrandModal = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button size="sm">Create Brand</Button>
+        <Button disabled={!selectedIds?.length} size="sm">
+          Add Flash Sale
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Create Product Brand</DialogTitle>
+          <DialogTitle>Add Flash Sale</DialogTitle>
         </DialogHeader>
-
-        <div className="flex items-center justify-center">
-          {imagePreview?.length > 0 ? (
-            <ImagePreviewer
-              setImageFiles={setImageFiles}
-              imagePreview={imagePreview}
-              setImagePreview={setImagePreview}
-            />
-          ) : (
-            <NMImageUploader
-              setImageFiles={setImageFiles}
-              setImagePreview={setImagePreview}
-              label="Upload Logo"
-            />
-          )}
-        </div>
 
         <Form {...form}>
           <form
@@ -81,25 +69,24 @@ const CreateBrandModal = () => {
             onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
-              name="name"
+              name="discountPercentage"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
                     <Input
-                      type="text"
+                      type="number"
                       {...field}
                       value={field.value || ""}
                       className="rounded-sm w-56"
-                      placeholder="Name"
+                      placeholder="Discount Percentage"
                     />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             <Button type="submit" className=" rounded-sm">
-              {isSubmitting ? "Creating...." : "Create"}
+              {isSubmitting ? "Adding...." : "Add"}
             </Button>
           </form>
         </Form>
@@ -108,4 +95,4 @@ const CreateBrandModal = () => {
   );
 };
 
-export default CreateBrandModal;
+export default DiscountModal;
