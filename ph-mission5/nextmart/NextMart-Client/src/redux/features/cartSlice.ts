@@ -1,6 +1,7 @@
 import { IProduct } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
+import Address from "./../../components/modules/cart/Address";
 
 export interface ICartProduct extends IProduct {
   orderQuantity: number;
@@ -8,10 +9,14 @@ export interface ICartProduct extends IProduct {
 
 interface InitialState {
   products: ICartProduct[];
+  city: string;
+  shippingAddress: string;
 }
 
 const initialState: InitialState = {
   products: [],
+  city: "",
+  shippingAddress: "",
 };
 
 const cartSlice = createSlice({
@@ -54,11 +59,21 @@ const cartSlice = createSlice({
         (product) => product._id !== action.payload
       );
     },
-    updateCity: () => {},
-    clearCart: () => {},
+    updateCity: (state, action) => {
+      state.city = action.payload;
+    },
+    updateShippingAddress: (state, action) => {
+      state.shippingAddress = action.payload;
+    },
+    clearCart: (state) => {
+      state.products = [];
+      state.city = "";
+      state.shippingAddress = "";
+    },
   },
 });
 
+// products
 export const orderedProductsSelector = (state: RootState) => {
   return state.cart.products;
 };
@@ -76,11 +91,23 @@ export const subTotalSelector = (state: RootState) => {
   }, 0);
 };
 
+// Address
+export const citySelector = (state: RootState) => {
+  return state.cart.city;
+};
+
+export const shippingAddressSelector = (state: RootState) => {
+  return state.cart.shippingAddress;
+};
+
 export const {
   addProduct,
   incrementOrderQuantity,
   decrementOrderQuantity,
   removeProduct,
+  updateCity,
+  updateShippingAddress,
+  clearCart,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
