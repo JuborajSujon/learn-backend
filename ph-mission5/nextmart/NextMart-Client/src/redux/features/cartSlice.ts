@@ -1,7 +1,6 @@
 import { IProduct } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import Address from "./../../components/modules/cart/Address";
 
 export interface ICartProduct extends IProduct {
   orderQuantity: number;
@@ -78,6 +77,18 @@ export const orderedProductsSelector = (state: RootState) => {
   return state.cart.products;
 };
 
+export const orderSelector = (state: RootState) => {
+  return {
+    products: state.cart.products.map((product) => ({
+      product: product._id,
+      quantity: product.orderQuantity,
+      color: "White",
+    })),
+    shippingAddress: `${state.cart.shippingAddress} - ${state.cart.city}`,
+    paymentMethod: "Online",
+  };
+};
+
 //* Payment
 export const subTotalSelector = (state: RootState) => {
   return state.cart.products.reduce((acc, product) => {
@@ -91,6 +102,30 @@ export const subTotalSelector = (state: RootState) => {
   }, 0);
 };
 
+export const shippingCostSelector = (state: RootState) => {
+  if (
+    state.cart.city &&
+    state.cart.city === "Dhaka" &&
+    state.cart.products.length > 0
+  ) {
+    return 60;
+  } else if (
+    state.cart.city &&
+    state.cart.city !== "Dhaka" &&
+    state.cart.products.length > 0
+  ) {
+    return 120;
+  } else {
+    return 0;
+  }
+};
+
+export const grandTotalSelector = (state: RootState) => {
+  const subTotal = subTotalSelector(state);
+  const shippingCost = shippingCostSelector(state);
+
+  return subTotal + shippingCost;
+};
 // Address
 export const citySelector = (state: RootState) => {
   return state.cart.city;
